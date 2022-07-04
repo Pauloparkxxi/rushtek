@@ -13,10 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-Route::get('/', [AuthenticatedSessionController::class, 'create']);
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('index');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 require __DIR__.'/auth.php';
