@@ -19,6 +19,7 @@ class StaffsController extends Controller
     public function index(Request $request)
     {
         $q = staffs::join('users','users.id','=','staffs.user_id')
+            ->orderBy('users.lname','ASC')
             ->where('users.role','=','2');
 
         $staff_status = 1;
