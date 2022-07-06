@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('email')->unique();
+            $table->string('avatar')->nullable();
             $table->integer('role');
             $table->integer('status');
             $table->timestamp('email_verified_at')->nullable();

@@ -65,7 +65,7 @@
                             @foreach ($staffs as $staff)
                             <tr class="border-b border-gray-200 hover:bg-green-100">
                                 <td class="p-2 items-center flex">
-                                    <img class="w-8 h-8 rounded-full" src="{{ asset('asset/img/1.jpg') }}" alt="">
+                                    <img class="w-8 h-8 rounded-full" src="{{ $staff->avatar ? asset('asset/img/'.$staff->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                                     <span class="font-medium mx-3">{{ $staff->lname }}, {{ $staff->fname }}</span>
                                 </td>
                                 <td class="p-2">
