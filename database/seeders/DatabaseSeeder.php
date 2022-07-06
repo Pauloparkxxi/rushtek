@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert([
             'fname' => 'Juan',
@@ -26,5 +25,23 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
             'password' => Hash::make('password'),
         ]);
+
+        $staff_id = DB::table('users')->insertGetId([
+            'fname' => 'Pedro',
+            'lname' => 'Morris',
+            'email' => 'staff@example.com',
+            'role'  => 2,
+            'status' => 1,
+            'password' => Hash::make('password'),
+        ]);
+
+        DB::table('staffs')->insert([
+            'user_id' => $staff_id,
+            'department_id' => null,
+            'contact' => '09123456789',
+            'birthdate' => '1988-08-08',
+        ]);
+
+        \App\Models\User::factory(100)->create();
     }
 }
