@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'fname' => 'Juan',
             'lname' => 'Cruz',
             'email' => 'admin@example.com',
+            'avatar' => '1.jpg',
             'role'  => 1,
             'status' => 1,
             'password' => Hash::make('password'),

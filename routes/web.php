@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 
 Route::group(['middleware' => 'auth'], function(){
     // Dashboard
@@ -27,6 +28,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Departments
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
+
+    //Admin
+    Route::get('/admins', [AdminController::class, 'index'])->name('admins');
 
 });
 
