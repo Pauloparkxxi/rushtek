@@ -33,7 +33,6 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (User $user) {
-            error_log($user->id.":".$user->lname.":".$user->role);
             Staff::factory()->create(['user_id' => $user->id]);
         });
     }

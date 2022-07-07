@@ -9,14 +9,14 @@
         <div class="max-w-6xl mx-auto">
             <div class="m-2 flex flex-wrap justify-between items-center">
                 <span class="flex flex-wrap items-center">
-                    <h1 class="text-5xl mx-2 font-bold leading-tight">Staffs</h1>
+                    <h1 class="text-5xl mx-2 font-bold leading-tight">Departments</h1>
                     <span class="flex-none justify-between space-x-2">
                         <a href="{{ route('dashboard') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
-                            Add Staff
+                            Add Departments
                         </a>
-                        <a href="{{ route('departments') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 focus:outline-none hover:bg-green-800">
-                            View Departments
+                        <a href="{{ route('staffs') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 focus:outline-none hover:bg-green-800">
+                            Back to Staffs
                         </a>
                     </span>
                 </span>
@@ -55,24 +55,23 @@
                         <table class="table-fixed overflow-scroll w-full">
                             <thead class="text-left text-white bg-green-700">
                                 <tr>
-                                    <th class="p-2">Staff Name</th>
-                                    <th class="p-2 hidden sm:table-cell">Department Name</th>
-                                    <th class="p-2 hidden md:table-cell">Contact #</th>
+                                    <th class="p-2">Name</th>
+                                    <th class="p-2 hidden sm:table-cell">Description</th>
+                                    <th class="p-2 hidden md:table-cell">Status</th>
                                     <th class="p-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($staffs as $staff)
+                            @foreach ($departments as $department)
                             <tr class="border-b border-gray-200 hover:bg-green-100">
                                 <td class="p-2 items-center flex">
-                                    <img class="w-8 h-8 rounded-full" src="{{ $staff->avatar ? asset('asset/img/profile/'.$staff->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
-                                    <span class="font-medium mx-3">{{ $staff->lname }}, {{ $staff->fname }}</span>
+                                    <span class="font-medium mx-3">{{ $department->dep_name }}</span>
                                 </td>
                                 <td class="p-2 hidden sm:table-cell">
-                                    <span class="font-medium">{{ $staff->department_id ? $staff->dep_name : 'None'}}</span>
+                                    <span class="font-medium">{{ $department->dep_description}}</span>
                                 </td>
                                 <td class="p-2 hidden md:table-cell">
-                                    <span class="font-medium">{{ $staff->contact ? $staff->contact : 'None' }}</span>
+                                    <span class="font-medium">{{ $department->dep_status ? 'Active' : 'Inactive'}}</span>
                                 </td>
                                 <td class="p-2">
                                     <span class="flex flex-wrap items-center justify-center space-x-2">
@@ -88,7 +87,7 @@
                             @endforeach
                         </tbody>
                         </table>
-                        {{ $staffs->links() }}
+                        {{ $departments->links() }}
                     </div>
                 </div>
             </div>
