@@ -41,7 +41,7 @@
                         <h1 class="text-7xl text-gray-800">{{ $clientsCount }}</h1>
                     </div>
                     <div class="bg-white text-right text-green-900 w-full px-4 py-2">
-                        <a href="{{ route('dashboard')}}" class="hover:underline">View Clients</a>
+                        <a href="{{ route('clients')}}" class="hover:underline">View Clients</a>
                     </div>
                 </div>
             </div>

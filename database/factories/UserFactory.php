@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Staff;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,11 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (User $user) {
-            Staff::factory()->create(['user_id' => $user->id]);
+            if ($user->role == 2) {
+                Staff::factory()->create(['user_id' => $user->id]);
+            } elseif ($user->role == 3) {
+                Client::factory()->create(['user_id' => $user->id]);
+            }
         });
     }
 

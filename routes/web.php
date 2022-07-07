@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
@@ -25,6 +26,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Staffs
     Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
+    
+    // Clients
+    Route::get('/clients',[ClientController::class, 'index'])->name('clients');
 
     //Departments
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
