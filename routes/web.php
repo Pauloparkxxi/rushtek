@@ -14,18 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StaffController;
-// Route::get('/', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+use App\Http\Controllers\DashboardController;
 
 Route::group(['middleware' => 'auth'], function(){
     // Dashboard
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('index');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Staffs
     Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');

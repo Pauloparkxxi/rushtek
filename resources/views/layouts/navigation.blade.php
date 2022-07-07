@@ -42,7 +42,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="items-center float-right hidden lg:flex md:flex hover:underline">
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('asset/img/1.jpg') }}" alt="">
+                    <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
                     <div class="px-1 font-medium dark:text-white">
                         <a href={{ route('dashboard') }} class="text-sm text-black">{{Auth::user()->lname}}, {{Auth::user()->fname}}</a>
                         <div class="text-xs text-gray-500 dark:text-gray-400">IT - Programmer</div>
@@ -115,7 +115,7 @@
                 <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#188f00"></path> </svg>
                 <span class="pl-1">{{ __('Admin') }}</span>
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('reports')" class="flex justify-start items-center">
+            <x-responsive-nav-link :href="route('staffs')" :active="request()->routeIs('reports')" class="flex justify-start items-center">
                 <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16"> <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#188f00"></path> <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" fill="#188f00"></path> <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" fill="#188f00"></path> </svg>
                 <span class="pl-1">{{ __('Staff') }}</span>
             </x-responsive-nav-link>
@@ -128,7 +128,7 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4 flex justify-start items-center hover:underline">
-                <img class="w-8 h-8 rounded-full" src="{{ asset('asset/img/1.jpg') }}" alt="">
+                <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
                 <span class="px-2">
                     <a href="{{ route('dashboard') }}" class="font-medium text-base text-gray-800">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</a>
                     <div class="font-medium text-sm text-gray-500">IT - Programmer</div>

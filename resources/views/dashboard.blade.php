@@ -27,10 +27,10 @@
                 <div class="w-full justify-center shadow bg-white">
                     <h3 class="text-3xl p-3 text-green-100 bg-green-700">Staffs</h3>
                     <div class="text-right font-bold bg-white max-h-full p-5">
-                        <h1 class="text-7xl text-gray-800">16</h1>
+                        <h1 class="text-7xl text-gray-800">{{ $staffsCount }}</h1>
                     </div>
                     <div class="bg-white text-right text-green-900 w-full px-4 py-2">
-                        <a href="{{ route('dashboard')}}" class="hover:underline">View Staffs</a>
+                        <a href="{{ route('staffs')}}" class="hover:underline">View Staffs</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="w-full justify-center shadow bg-white">
                     <h3 class="text-3xl p-3 text-green-100 bg-green-700">Clients</h3>
                     <div class="text-right font-bold bg-white max-h-full p-5">
-                        <h1 class="text-7xl text-gray-800">30</h1>
+                        <h1 class="text-7xl text-gray-800">{{ $clientsCount }}</h1>
                     </div>
                     <div class="bg-white text-right text-green-900 w-full px-4 py-2">
                         <a href="{{ route('dashboard')}}" class="hover:underline">View Clients</a>
