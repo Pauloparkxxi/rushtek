@@ -45,7 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Staffs() {
-        return $this->hasMany(Staffs::class);
+    public function Staff() {
+        return $this->hasMany(Staff::class);
     }
 }

@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        DB::table('staffs')->insert([
+        DB::table('staff')->insert([
             'user_id' => $staff_id,
             'department_id' => null,
             'contact' => '09123456789',
