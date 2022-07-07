@@ -24,7 +24,7 @@
                         <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M464 64C490.5 64 512 85.49 512 112V176C512 202.5 490.5 224 464 224H48C21.49 224 0 202.5 0 176V112C0 85.49 21.49 64 48 64H464zM448 128H320V160H448V128zM464 288C490.5 288 512 309.5 512 336V400C512 426.5 490.5 448 464 448H48C21.49 448 0 426.5 0 400V336C0 309.5 21.49 288 48 288H464zM192 352V384H448V352H192z" fill="#188f00"></path></svg>
                         <span class="pl-1">{{ __('Reports') }}</span>
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('reports')">
+                    <x-nav-link :href="route('admins')" :active="request()->routeIs('reports')">
                         <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#188f00"></path> </svg>
                         <span class="pl-1">{{ __('Admin') }}</span>
                     </x-nav-link>
@@ -111,7 +111,7 @@
                 <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M464 64C490.5 64 512 85.49 512 112V176C512 202.5 490.5 224 464 224H48C21.49 224 0 202.5 0 176V112C0 85.49 21.49 64 48 64H464zM448 128H320V160H448V128zM464 288C490.5 288 512 309.5 512 336V400C512 426.5 490.5 448 464 448H48C21.49 448 0 426.5 0 400V336C0 309.5 21.49 288 48 288H464zM192 352V384H448V352H192z" fill="#188f00"></path></svg>
                 <span class="pl-1">{{ __('Reports') }}</span>
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('reports')" class="flex justify-start items-center">
+            <x-responsive-nav-link :href="route('admins')" :active="request()->routeIs('reports')" class="flex justify-start items-center">
                 <svg style="height: 14px; width: 14px; color: rgb(24, 143, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#188f00"></path> </svg>
                 <span class="pl-1">{{ __('Admin') }}</span>
             </x-responsive-nav-link>
