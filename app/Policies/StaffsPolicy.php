@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\staffs;
+use App\Models\Staffs;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StaffsPolicy
@@ -25,10 +25,10 @@ class StaffsPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, staffs $staffs)
+    public function view(User $user, Staffs $staffs)
     {
         //
     }
@@ -48,7 +48,7 @@ class StaffsPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, staffs $staffs)
@@ -60,7 +60,7 @@ class StaffsPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, staffs $staffs)
@@ -72,7 +72,7 @@ class StaffsPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function restore(User $user, staffs $staffs)
@@ -84,7 +84,7 @@ class StaffsPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function forceDelete(User $user, staffs $staffs)

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\users;
-use App\Models\staffs;
+use App\Models\Users;
+use App\Models\Staffs;
 use App\Http\Requests\StorestaffsRequest;
 use App\Http\Requests\UpdatestaffsRequest;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class StaffsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Http\Response
      */
     public function show(staffs $staffs)
@@ -68,10 +68,10 @@ class StaffsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Http\Response
      */
-    public function edit(staffs $staffs)
+    public function edit(Staffs $staffs)
     {
         //
     }
@@ -80,10 +80,10 @@ class StaffsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdatestaffsRequest  $request
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatestaffsRequest $request, staffs $staffs)
+    public function update(UpdatestaffsRequest $request, Staffs $staffs)
     {
         //
     }
@@ -91,10 +91,10 @@ class StaffsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\staffs  $staffs
+     * @param  \App\Models\Staffs  $staffs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(staffs $staffs)
+    public function destroy(Staffs $staffs)
     {
         //
     }

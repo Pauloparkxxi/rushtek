@@ -34,7 +34,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             error_log($user->id.":".$user->lname.":".$user->role);
-            \App\Models\Staffs::factory()->create(['user_id' => $user->id]);
+            Staffs::factory()->create(['user_id' => $user->id]);
         });
     }
 
