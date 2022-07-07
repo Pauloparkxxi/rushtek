@@ -18,7 +18,8 @@ class StaffFactory extends Factory
     {
         return [
             'contact' => fake()->phoneNumber(),
-            'birthdate' => fake()->date($format = 'Y-m-d', $max = '2000-01-01')
+            'birthdate' => fake()->date($format = 'Y-m-d', $max = '2000-01-01'),
+            'department_id' => fake()->numberBetween($min = 1, $max = 100),
         ];
     }
 }

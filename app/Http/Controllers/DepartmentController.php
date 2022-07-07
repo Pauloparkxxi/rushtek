@@ -2,32 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Staff;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
-class StaffController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $q = staff::where('users.role','=','2')
-            ->join('users','users.id','=','staff.user_id')
-            ->join('departments','departments.id','=','staff.user_id')
-            ->orderBy('users.lname','ASC');
-
-        $staff_status = 1;
-        if ($request->has('status')){
-            $q->where('status',$request->has('status'));
-        } else {
-            $q->where('status',1);
-        }
-        
-        $staffs = $q->paginate(10);
-        return view('staffs.index',compact('staffs'));
+        $departments = Department::where('dep_status','=','1')
+            ->orderBy('dep_name','ASC')
+            ->paginate(10);
+        return view('departments.index',compact('departments'));
     }
 
     /**
@@ -54,10 +44,10 @@ class StaffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Staff $staff)
+    public function show(Department $department)
     {
         //
     }
@@ -65,10 +55,10 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Staff $staff)
+    public function edit(Department $department)
     {
         //
     }
@@ -77,10 +67,10 @@ class StaffController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, Department $department)
     {
         //
     }
@@ -88,10 +78,10 @@ class StaffController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Staff $staff)
+    public function destroy(Department $department)
     {
         //
     }

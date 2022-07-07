@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'birthdate' => '1988-08-08',
         ]);
 
+        \App\Models\Department::factory(100)->create();
         \App\Models\User::factory(100)->create();
     }
 }

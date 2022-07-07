@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
 
 Route::group(['middleware' => 'auth'], function(){
@@ -23,6 +24,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Staffs
     Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
+
+    //Departments
+    Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
+
 });
 
 require __DIR__.'/auth.php';
