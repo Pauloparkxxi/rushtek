@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\Staffs;
+use App\Models\Staff;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -34,7 +34,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             error_log($user->id.":".$user->lname.":".$user->role);
-            Staffs::factory()->create(['user_id' => $user->id]);
+            Staff::factory()->create(['user_id' => $user->id]);
         });
     }
 

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('staffs', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
-            $table->string('department_id')->nullable();
+            $table->integer('user_id')->unique();
+            $table->integer('department_id')->nullable();
             $table->string('contact')->nullable();
             $table->date('birthdate')->nullable();
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staffs');
+        Schema::dropIfExists('staff');
     }
 };

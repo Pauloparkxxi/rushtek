@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\StaffsController;
+use App\Http\Controllers\StaffController;
 // Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
     })->name('dashboard');
 
     // Staffs
-    Route::get('/staffs',[StaffsController::class, 'index'])->name('staffs');
+    Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
 });
 
 require __DIR__.'/auth.php';
