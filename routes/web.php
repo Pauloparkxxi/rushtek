@@ -18,6 +18,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => 'auth'], function(){
     // Dashboard
@@ -35,6 +36,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Admin
     Route::get('/admins', [AdminController::class, 'index'])->name('admins');
+    
+    //Admin
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 });
 

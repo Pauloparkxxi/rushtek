@@ -44,7 +44,7 @@
                 <div class="items-center float-right hidden lg:flex md:flex hover:underline">
                     <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
                     <div class="px-1 font-medium dark:text-white">
-                        <a href={{ route('dashboard') }} class="text-sm text-black">{{Auth::user()->lname}}, {{Auth::user()->fname}}</a>
+                        <a href={{ route('profile') }} class="text-sm text-black">{{Auth::user()->lname}}, {{Auth::user()->fname}}</a>
                         <div class="text-xs text-gray-500 dark:text-gray-400">IT - Programmer</div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
             <div class="px-4 flex justify-start items-center hover:underline">
                 <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
                 <span class="px-2">
-                    <a href="{{ route('dashboard') }}" class="font-medium text-base text-gray-800">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</a>
+                    <a href="{{ route('profile') }}" class="font-medium text-base text-gray-800">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</a>
                     <div class="font-medium text-sm text-gray-500">IT - Programmer</div>
                 </span>
             </div>
