@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -37,8 +38,9 @@ class StaffController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {        
+        $departments = Department::all();
+        return view('staffs.create',compact('departments'));
     }
 
     public function detail ($user_id)
@@ -48,7 +50,7 @@ class StaffController extends Controller
             ->join('users','users.id','=','staff.user_id')
             ->join('departments','departments.id','=','staff.user_id')
             ->first();
-        // dd($user);
+
         return view('staffs.detail',compact('user'));
     }
 

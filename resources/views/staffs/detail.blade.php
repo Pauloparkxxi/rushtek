@@ -16,7 +16,7 @@
             <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
                 @csrf
                 @method('PUT')
-                {{-- <input type="hidden" name="user_id" value="{{ $user->id }}" /> --}}
+                <input type="hidden" name="user_id" value="{{ $user->user_id }}" />
     
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
                     <img id="preview_img" class="rounded-full border border-green-700 mb-1 border-solid hover:border-green-900" 

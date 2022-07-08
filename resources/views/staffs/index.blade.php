@@ -11,7 +11,7 @@
                 <span class="flex flex-wrap items-center">
                     <h1 class="text-5xl mx-2 font-bold leading-tight">Staffs</h1>
                     <span class="flex-none justify-between space-x-2">
-                        <a href="{{ route('dashboard') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                        <a href="{{ route('staffs.create') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
                             Add Staff
                         </a>
