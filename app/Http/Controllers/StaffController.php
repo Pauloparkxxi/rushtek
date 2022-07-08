@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Staff;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -38,6 +39,17 @@ class StaffController extends Controller
     public function create()
     {
         //
+    }
+
+    public function detail ($user_id)
+    {
+        $user = staff::where('users.role','=','2')
+            ->where('users.id','=',$user_id)
+            ->join('users','users.id','=','staff.user_id')
+            ->join('departments','departments.id','=','staff.user_id')
+            ->first();
+        // dd($user);
+        return view('staffs.detail',compact('user'));
     }
 
     /**
