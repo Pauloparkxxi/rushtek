@@ -76,10 +76,10 @@
                                 </td>
                                 <td class="p-2">
                                     <span class="flex flex-wrap items-center justify-center space-x-2">
-                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
+                                        <a href="{{ route('staffs.detail',$staff->user_id) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                             View
                                         </a>
-                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600">
+                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
                                             Delete
                                         </a>
                                     </span>
