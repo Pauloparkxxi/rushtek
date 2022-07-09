@@ -29,6 +29,15 @@ class AdminController extends Controller
      */
     public function create()
     {
+        return view('admins.create');
+    }
+
+    public function detail ($user_id) {
+        $user = user::where('users.role','=','1')
+            ->where('users.id','=',$user_id)
+            ->first();
+
+        return view('admins.detail',compact('user'));
     }
 
     /**
