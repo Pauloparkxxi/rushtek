@@ -38,8 +38,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Admin
     Route::get('/admins', [AdminController::class, 'index'])->name('admins');
+    Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
+    Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
     
-    //Admin
+    //Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 });
