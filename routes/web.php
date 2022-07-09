@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Staffs
     Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
+    Route::get('/staffs/create',[StaffController::class, 'create'])->name('staffs.create');
     Route::get('/staffs/{id}',[StaffController::class, 'detail'])->name('staffs.detail');
     
     // Clients
