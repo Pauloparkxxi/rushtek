@@ -13,12 +13,12 @@
                 <input type="hidden" name="user_no" value="{{ $user->user_id }}" />
     
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
-                    <img id="preview_img" class="rounded-full border border-green-700 mb-1 border-solid hover:border-green-900" 
-                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/profile/default_profile.png') }}" width="200" height="150" />
+                    <img class="border border-green-900 w-48 h-48 object-cover rounded-full" 
+                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/profile/default_profile.png') }}"/>
                 
                     <span class="flex-wrap">
                         <x-label for="product_photo" :value="__('Photo (Photo will not be changed if empty)')" />
-                        <input type="file" name="product_photo" id="idProductPhoto" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md items-center">
+                        <input type="file" name="avatar" id="idAvatar" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md items-center">
                     </span>
                 </div>
                 

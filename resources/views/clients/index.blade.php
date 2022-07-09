@@ -62,7 +62,7 @@
                             @foreach ($clients as $client)
                             <tr class="border-b border-gray-200 hover:bg-green-100">
                                 <td class="p-2 items-center flex">
-                                    <img class="w-8 h-8 rounded-full" src="{{ $client->avatar ? asset('asset/img/profile/'.$client->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
+                                    <img class="w-8 h-8 rounded-full object-cover" src="{{ $client->avatar ? asset('asset/img/profile/'.$client->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
                                     <span class="font-medium mx-3">{{ $client->lname }}, {{ $client->fname }}</span>
                                 </td>
                                 <td class="p-2 hidden sm:table-cell">
