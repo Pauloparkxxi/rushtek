@@ -30,7 +30,19 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
+    }
+
+    public function detail ($user_id)
+    {
+        $user = client::where('users.role','=','3')
+            ->where('users.id','=',$user_id)
+            ->join('users','users.id','=','clients.user_id')
+            ->first();
+
+        // dd($user_id,$user);
+
+        return view('clients.detail',compact('user'));
     }
 
     /**
