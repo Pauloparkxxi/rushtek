@@ -11,7 +11,7 @@
                 <span class="flex flex-wrap items-center">
                     <h1 class="text-5xl mx-2 font-bold leading-tight">Departments</h1>
                     <span class="flex-none justify-between space-x-2">
-                        <a href="{{ route('dashboard') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                        <a href="{{ route('departments.create') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
                             Add Departments
                         </a>
@@ -75,10 +75,10 @@
                                 </td>
                                 <td class="p-2">
                                     <span class="flex flex-wrap items-center justify-center space-x-2">
-                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
+                                        <a href="{{ route('departments.detail',$department->id) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                             View
                                         </a>
-                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600">
+                                        <a href="{{ route('departments') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
                                             Delete
                                         </a>
                                     </span>
