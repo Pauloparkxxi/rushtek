@@ -27,7 +27,13 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('departments.create');
+    }
+
+    public function detail($department_id) {
+        $department = Department::find($department_id);
+
+        return view('departments.detail',compact('department'));
     }
 
     /**

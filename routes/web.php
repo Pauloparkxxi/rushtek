@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Departments
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
+    Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+    Route::get('/departments/{id}', [DepartmentController::class, 'detail'])->name('departments.detail');
 
     //Admin
     Route::get('/admins', [AdminController::class, 'index'])->name('admins');
