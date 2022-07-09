@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function(){
     
     // Clients
     Route::get('/clients',[ClientController::class, 'index'])->name('clients');
+    Route::get('/clients/create',[ClientController::class, 'create'])->name('clients.create');
+    Route::get('/clients/{id}',[ClientController::class, 'detail'])->name('clients.detail');
 
     //Departments
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
