@@ -62,6 +62,15 @@
     
                     <input value="{{ $user->contact }}" type="text" name="user_mobile" id="idUserMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
                 </div>
+
+                <div class="mt-4">
+                    <x-label :value="__('Status')" />
+
+                    <select name="status" id="idStatus" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline">
+                        <option value="1" @if($user->status == 1) selected @endif>Active</option>
+                        <option value="0" @if($user->status == 0) selected @endif>Inactive</option>
+                    </select>
+                </div>
     
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-3" onclick="return confirm('Are you sure to update?')">
