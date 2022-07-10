@@ -20,7 +20,7 @@
 
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
                     <img class="border border-green-900 w-48 h-48 object-cover rounded-full" 
-                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/profile/default_profile.png') }}" width="200" height="150" />
+                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/default_profile.png') }}" width="200" height="150" />
                 
                     <span class="flex-wrap">
                         <x-label for="" :value="__('Photo (Photo will not be changed if empty)')" />

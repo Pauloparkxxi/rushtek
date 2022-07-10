@@ -42,7 +42,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="items-center float-right hidden lg:flex md:flex hover:underline">
-                    <img class="w-8 h-8 rounded-full object-cover" width="250" height="250" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
+                    <img class="w-8 h-8 rounded-full object-cover" width="250" height="250" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                     <div class="px-1 font-medium dark:text-white">
                         <a href={{ route('profile') }} class="text-sm text-black">{{Auth::user()->lname}}, {{Auth::user()->fname}}</a>
                         <div class="text-xs text-gray-500 dark:text-gray-400">IT - Programmer</div>
@@ -128,7 +128,7 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4 flex justify-start items-center hover:underline">
-                <img class="w-8 h-8 rounded-full object-cover" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
+                <img class="w-8 h-8 rounded-full object-cover" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                 <span class="px-2">
                     <a href="{{ route('profile') }}" class="font-medium text-base text-gray-800">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</a>
                     <div class="font-medium text-sm text-gray-500">IT - Programmer</div>
