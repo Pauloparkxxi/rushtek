@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/admins/create',[AdminController::class, 'store'])->name('admins.store');
     Route::get('/admins/delete/{id}',[AdminController::class, 'delete'])->name('admins.delete');
     Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
+    Route::put('/admins/{id}',[AdminController::class, 'update'])->name('admins.update');
 
     
     //Profile

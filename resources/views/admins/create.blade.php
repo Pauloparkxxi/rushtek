@@ -60,16 +60,4 @@
     </div>
     </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function (e) {
-            $('#idAvatar').change(function(){
-                let reader = new FileReader();
-                reader.onload = (e) => { 
-                    $('#idAvatarPreview').attr('src', e.target.result); 
-                    $('#idAvatarPreview').removeClass('hidden');
-                }
-                reader.readAsDataURL(this.files[0]); 
-            });
-        });
-    </script>
 </x-app-layout>

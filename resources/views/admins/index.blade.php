@@ -1,7 +1,7 @@
 <x-app-layout>
     @if ($message = Session::get('alert'))
           <x-alert  />
-      @endif
+    @endif
     
     <div class="py-3">
         <div class="max-w-6xl mx-auto">
