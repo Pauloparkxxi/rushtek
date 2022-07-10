@@ -1,10 +1,4 @@
 <x-app-layout>
-    {{-- @if(session()->get('success'))
-      <div class="alert alert-success">
-        {{ session()->get('success') }}  
-      </div><br />
-    @endif --}}
-
     @if ($message = Session::get('alert'))
           <x-alert  />
       @endif
