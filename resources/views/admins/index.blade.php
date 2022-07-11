@@ -1,9 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    @if ($message = Session::get('alert'))
+          <x-alert  />
+    @endif
     
     <div class="py-3">
         <div class="max-w-6xl mx-auto">
@@ -62,7 +60,7 @@
                             @foreach ($admins as $admin)
                             <tr class="border-b border-gray-200 hover:bg-green-100">
                                 <td class="p-2 items-center flex">
-                                    <img class="w-8 h-8 rounded-full object-cover" src="{{ $admin->avatar ? asset('asset/img/profile/'.$admin->avatar) : asset('asset/img/profile/default_profile.png') }}" alt="">
+                                    <img class="w-8 h-8 rounded-full object-cover" src="{{ $admin->avatar ? asset('asset/img/profile/'.$admin->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                                     <span class="font-medium mx-3">{{ $admin->lname }}, {{ $admin->fname }}</span>
                                 </td>
                                 <td class="p-2 hidden sm:table-cell">
@@ -76,7 +74,7 @@
                                         <a href="{{ route('admins.detail', $admin->id) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                             View
                                         </a>
-                                        <a href="{{ route('admins') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
+                                        <a href="{{ route('admins.delete', $admin->id) }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
                                             Delete
                                         </a>
                                     </span>

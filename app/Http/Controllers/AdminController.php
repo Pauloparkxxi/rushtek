@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use File;
+
 
 class AdminController extends Controller
 {
@@ -16,7 +21,7 @@ class AdminController extends Controller
     {
         $admins = User::where('role','=','1')
             ->where('status','=','1')
-            ->orderBy('lname','ASC')
+            ->orderBy('id','ASC')
             ->paginate(10);
         
         return view('admins.index',compact('admins'));
@@ -48,7 +53,21 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $admin = User::create([
+            'fname'     => Str::ucfirst(Str::lower($request->fname)),
+            'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'status'    => 1,
+            'role'      => 1
+        ]);
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $admin->id.$photo->getClientOriginalName();
+            $path = Storage::disk('public')->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            $admin->update(['avatar' => $avatar_name]);
+        }
+        return redirect(route('admins'))->with('alert', 'Admin Added!');
     }
 
     /**
@@ -63,17 +82,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -82,7 +90,34 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update([
+            'lname' => $request->lname,
+            'fname' => $request->fname,
+            'email' => $request->email,
+            'status' => $request->status,
+        ]);
+
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $id.$photo->getClientOriginalName();
+            
+            // Storage::delete('bread/'.$product->photo);
+            $storage = Storage::disk('public');
+            if ($user->avatar) {
+                $storage->delete('/asset/img/profile/'.$user->avatar);
+            }
+            $path = $storage->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            
+            $user->update(['avatar' => $avatar_name]);
+        }
+
+        if($request->password) {
+            $validated = Hash::make($request->password);
+            $user->update(['password' => $validated]);
+        }
+
+        return redirect(route('admins.detail',$id))->with('alert', 'Admin Updated!');
     }
 
     /**
@@ -91,8 +126,11 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        // dd($id);
+        User::find($id)->delete();
+        
+        return redirect(route('admins'))->with('alert', 'Admin Deleted!');
     }
 }

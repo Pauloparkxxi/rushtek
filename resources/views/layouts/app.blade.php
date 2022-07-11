@@ -13,6 +13,19 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function (e) {
+                $('#idAvatar').change(function(){
+                    let reader = new FileReader();
+                    reader.onload = (e) => { 
+                        $('#idAvatarPreview').attr('src', e.target.result); 
+                        $('#idAvatarPreview').removeClass('hidden');
+                    }
+                    reader.readAsDataURL(this.files[0]); 
+                });
+            });
+        </script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

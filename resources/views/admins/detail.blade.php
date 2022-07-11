@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if ($message = Session::get('alert'))
+          <x-alert  />
+    @endif
     <div class="overflow-x-auto">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
     <div class="w-full lg:w-3/6 m-6">
@@ -13,14 +16,13 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
+            <form method="POST" autocomplete="off" action="{{ route('admins.update',$user->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="user_id" value="{{ $user->user_id }}" />
 
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
-                    <img class="border border-green-900 w-48 h-48 object-cover rounded-full" 
-                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/profile/default_profile.png') }}" width="200" height="150" />
+                    <img id="idAvatarPreview" class="border border-green-900 w-48 h-48 object-cover rounded-full" 
+                    src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/default_profile.png') }}" width="200" height="150" />
                 
                     <span class="flex-wrap">
                         <x-label for="" :value="__('Photo (Photo will not be changed if empty)')" />

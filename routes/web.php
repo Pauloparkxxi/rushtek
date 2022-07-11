@@ -39,11 +39,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
     Route::get('/departments/{id}', [DepartmentController::class, 'detail'])->name('departments.detail');
-
+    
     //Admin
     Route::get('/admins', [AdminController::class, 'index'])->name('admins');
     Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
+    Route::post('/admins/create',[AdminController::class, 'store'])->name('admins.store');
+    Route::get('/admins/delete/{id}',[AdminController::class, 'delete'])->name('admins.delete');
     Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
+    Route::put('/admins/{id}',[AdminController::class, 'update'])->name('admins.update');
+
     
     //Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
