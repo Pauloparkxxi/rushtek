@@ -28,7 +28,11 @@ Route::group(['middleware' => 'auth'], function(){
     // Staffs
     Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
     Route::get('/staffs/create',[StaffController::class, 'create'])->name('staffs.create');
+    Route::post('/staffs/create',[StaffController::class, 'store'])->name('staffs.store');
+    Route::get('/staffs/delete/{id}',[StaffController::class, 'delete'])->name('staffs.delete');
     Route::get('/staffs/{id}',[StaffController::class, 'detail'])->name('staffs.detail');
+    Route::put('/staffs/{id}',[StaffController::class, 'update'])->name('staffs.update');
+
     
     // Clients
     Route::get('/clients',[ClientController::class, 'index'])->name('clients');
