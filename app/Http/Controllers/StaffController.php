@@ -6,6 +6,10 @@ use App\Models\Staff;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use File;
 
 class StaffController extends Controller
 {
@@ -18,14 +22,14 @@ class StaffController extends Controller
     {
         $q = staff::where('users.role','=','2')
             ->join('users','users.id','=','staff.user_id')
-            ->join('departments','departments.id','=','staff.user_id')
+            ->join('departments','departments.id','=','staff.department_id')
             ->orderBy('users.lname','ASC');
 
         $staff_status = 1;
         if ($request->has('status')){
             $q->where('status',$request->has('status'));
         } else {
-            $q->where('status',1);
+            $q->where('status','=',1);
         }
         
         $staffs = $q->paginate(10);
@@ -39,7 +43,9 @@ class StaffController extends Controller
      */
     public function create()
     {        
-        $departments = Department::all();
+        $departments = Department::where('dep_status',1)
+            ->orderBy('dep_name','ASC')
+            ->get();
         return view('staffs.create',compact('departments'));
     }
 
@@ -48,10 +54,14 @@ class StaffController extends Controller
         $user = staff::where('users.role','=','2')
             ->where('users.id','=',$user_id)
             ->join('users','users.id','=','staff.user_id')
-            ->join('departments','departments.id','=','staff.user_id')
+            ->join('departments','departments.id','=','staff.department_id')
             ->first();
 
-        return view('staffs.detail',compact('user'));
+        $departments = Department::where('dep_status',1)
+            ->orderBy('dep_name','ASC')
+            ->get();
+
+        return view('staffs.detail',compact(['user','departments']));
     }
 
     /**
@@ -62,30 +72,32 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $staff = User::create([
+            'fname'     => Str::ucfirst(Str::lower($request->fname)),
+            'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'status'    => 1,
+            'role'      => 2
+        ]);
+
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $staff->id.$photo->getClientOriginalName();
+            $path = Storage::disk('public')->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            $staff->update(['avatar' => $avatar_name]);
+        }
+
+        Staff::create([
+            'user_id' => $staff->id,
+            'department_id' => $request->department,
+            'contact' => $request->contact,
+            'birthdate' => $request->birthdate
+        ]);
+
+        return redirect(route('staffs'))->with('alert', 'Staff Added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Staff $staff)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Staff $staff)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -94,9 +106,43 @@ class StaffController extends Controller
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, $id)
     {
-        //
+
+        $user = User::find($id);
+        $user->update([
+            'lname' => $request->lname,
+            'fname' => $request->fname,
+            'email' => $request->email,
+            'status' => $request->status,
+        ]);
+
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $id.$photo->getClientOriginalName();
+            
+            $storage = Storage::disk('public');
+            if ($user->avatar) {
+                $storage->delete('/asset/img/profile/'.$user->avatar);
+            }
+            $path = $storage->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            
+            $user->update(['avatar' => $avatar_name]);
+        }
+
+        if($request->password) {
+            $validated = Hash::make($request->password);
+            $user->update(['password' => $validated]);
+        }
+
+        $staff = Staff::where('user_id',$id);
+        $staff->update([
+            'department_id' => $request->department,
+            'contact' => $request->contact,
+            'birthdate' => $request->birthdate
+        ]);
+
+        return redirect(route('staffs.detail',$id))->with('alert', 'Staff Updated!');
     }
 
     /**
@@ -105,8 +151,11 @@ class StaffController extends Controller
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Staff $staff)
+    public function delete($id)
     {
-        //
+        User::find($id)->delete();
+        Staff::where('user_id',$id)->delete();
+        
+        return redirect(route('staffs'))->with('alert', 'Staff Deleted!');
     }
 }

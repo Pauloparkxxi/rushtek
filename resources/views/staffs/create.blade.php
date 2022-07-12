@@ -13,14 +13,13 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
+            <form method="POST" autocomplete="off" action="{{ route('staffs.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
                     <img class="border border-green-900 w-48 h-48 object-cover rounded-full" 
                     src="{{ asset('asset/img/default_profile.png') }}" width="200" height="150" />
-                
+
                     <span class="flex-wrap">
-                        <x-label for="product_photo" :value="__('Photo (Photo will not be changed if empty)')" />
                         <input type="file" name="avatar" id="idAvatar" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md items-center">
                     </span>
                 </div>
@@ -39,9 +38,19 @@
 
                 <div class="mt-4">
                     <x-label :value="__('Birthdate')" />
-                    <input value="" type="date" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="2022-02-02" type="date" name="birthdate" id="idBirthdate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
                 </div>
     
+                <div class="mt-4">
+                    <x-label :value="__('Department')" />
+    
+                    <select name="department" id="idDepartment" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline">
+                        @foreach ($departments as $department )
+                            <option value="{{ $department->id }}">{{ $department->dep_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="mt-4">
                     <x-label :value="__('Email')" />
     
@@ -57,7 +66,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Contact')" />
     
-                    <input value="" type="text" name="mobile" id="idMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
                 </div>
     
                 <div class="flex items-center justify-end mt-4">

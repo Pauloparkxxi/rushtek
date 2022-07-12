@@ -1,9 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    @if ($message = Session::get('alert'))
+        <x-alert  />
+    @endif
     
     <div class="py-3">
         <div class="max-w-6xl mx-auto">
@@ -79,7 +77,7 @@
                                         <a href="{{ route('staffs.detail',$staff->user_id) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                             View
                                         </a>
-                                        <a href="{{ route('staffs') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
+                                        <a href="{{ route('staffs.delete',$staff->user_id) }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
                                             Delete
                                         </a>
                                     </span>
