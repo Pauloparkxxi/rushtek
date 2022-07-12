@@ -47,10 +47,42 @@
                     </a>
                 @endif --}}
 
-                <x-button class="ml-3">
+                <a href="#" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                focus:outline-none hover:bg-green-800" onclick="admin()">
+                    Admin
+                </a>
+
+                <a href="#" class="btn bg-yellow-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                focus:outline-none hover:bg-yellow-800" onclick="staff()">
+                    Staff
+                </a>
+
+                <a href="#" class="btn bg-blue-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                focus:outline-none hover:bg-blue-800" onclick="client()">
+                    Client
+                </a>
+
+                <x-button class="ml-3" onclick="()=> { alert('hit')  }">
                     {{ __('Log in') }}
                 </x-button>
             </div>
         </form>
     </x-auth-card>
 </x-guest-layout>
+
+<script>
+    function admin() {
+        $('#email').val('admin@example.com') 
+        $('#password').val('password')
+    }
+
+    function staff() {
+        $('#email').val('staff@example.com') 
+        $('#password').val('password')
+    }
+
+    function client() {
+        $('#email').val('client@example.com') 
+        $('#password').val('password')
+    }
+</script>
