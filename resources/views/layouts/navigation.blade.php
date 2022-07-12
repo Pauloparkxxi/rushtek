@@ -45,7 +45,15 @@
                     <img class="w-8 h-8 rounded-full object-cover" width="250" height="250" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                     <div class="px-1 font-medium dark:text-white">
                         <a href={{ route('profile') }} class="text-sm text-black">{{Auth::user()->lname}}, {{Auth::user()->fname}}</a>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">IT - Programmer</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                            @if (Auth::user()->role == 1)
+                                Admin
+                            @elseif (Auth::user()->role == 2 && Auth::user()->staff->department)
+                                {{Auth::user()->staff->department->dep_name}}
+                            @elseif (Auth::user()->role == 3 && Auth::user()->client)
+                                {{Auth::user()->client->company}}
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <x-dropdown align="right" width="48">
@@ -131,7 +139,15 @@
                 <img class="w-8 h-8 rounded-full object-cover" src="{{ Auth::user()->avatar ? asset('asset/img/profile/'.Auth::user()->avatar) : asset('asset/img/default_profile.png') }}" alt="">
                 <span class="px-2">
                     <a href="{{ route('profile') }}" class="font-medium text-base text-gray-800">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</a>
-                    <div class="font-medium text-sm text-gray-500">IT - Programmer</div>
+                    <div class="font-medium text-sm text-gray-500">
+                        @if (Auth::user()->role == 1)
+                            Admin
+                        @elseif (Auth::user()->role == 2 && Auth::user()->staff->department)
+                            {{Auth::user()->staff->department->dep_name}}
+                        @elseif (Auth::user()->role == 3 && Auth::user()->client)
+                            {{Auth::user()->client->company}}
+                        @endif
+                    </div>
                 </span>
             </div>
 

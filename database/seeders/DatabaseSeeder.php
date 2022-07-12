@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'fname' => 'Pedro',
             'lname' => 'Morris',
             'email' => 'staff@example.com',
-            'avatar' => '1.jpg',
+            'avatar' => '',
             'role'  => 2,
             'status' => 1,
             'password' => Hash::make('password'),
@@ -42,6 +42,22 @@ class DatabaseSeeder extends Seeder
             'department_id' => null,
             'contact' => '09123456789',
             'birthdate' => '1988-08-08',
+        ]);
+
+        $client_id = DB::table('users')->insertGetId([
+            'fname' => 'Tomas',
+            'lname' => 'Philip',
+            'email' => 'client@example.com',
+            'avatar' => '',
+            'role'  => 3,
+            'status' => 1,
+            'password' => Hash::make('password'),
+        ]);
+
+        DB::table('clients')->insert([
+            'user_id' => $client_id,
+            'contact' => '09123456789',
+            'company' => 'Company 1',
         ]);
 
         \App\Models\Department::factory(100)->create();

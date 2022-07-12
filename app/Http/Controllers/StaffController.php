@@ -22,7 +22,7 @@ class StaffController extends Controller
     {
         $q = staff::where('users.role','=','2')
             ->join('users','users.id','=','staff.user_id')
-            ->join('departments','departments.id','=','staff.department_id')
+            ->leftJoin('departments','departments.id','=','staff.department_id')
             ->orderBy('users.lname','ASC');
 
         $staff_status = 1;
@@ -54,7 +54,7 @@ class StaffController extends Controller
         $user = staff::where('users.role','=','2')
             ->where('users.id','=',$user_id)
             ->join('users','users.id','=','staff.user_id')
-            ->join('departments','departments.id','=','staff.department_id')
+            ->leftJoin('departments','departments.id','=','staff.department_id')
             ->first();
 
         $departments = Department::where('dep_status',1)

@@ -15,4 +15,8 @@ class Staff extends Model
         'contact',
         'birthdate',
     ];
+    
+    public function Department() {
+        return $this->belongsTo(Department::class);
+    }
 }
