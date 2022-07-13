@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if ($message = Session::get('alert'))
+          <x-alert  />
+    @endif
     <div class="overflow-x-auto">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
     <div class="w-full lg:w-3/6 m-6">
@@ -7,13 +10,12 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
+            <form method="POST" autocomplete="off" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="user_no" value="{{ $user->user_id }}" />
     
                 <div class="mt-4 flex align-middle items-center justify-center space-x-3">
-                    <img class="border border-green-900 w-48 h-48 object-cover rounded-full" 
+                    <img id="idAvatarPreview" class="border border-green-900 w-48 h-48 object-cover rounded-full" 
                     src="{{ $user->avatar ? asset('asset/img/profile/'.$user->avatar) : asset('asset/img/default_profile.png') }}"/>
                 
                     <span class="flex-wrap">
