@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use File;
 
 class ClientController extends Controller
 {
@@ -13,11 +17,18 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $q = Client::where('users.role','=','3')
         ->join('users','users.id','=','clients.user_id')
         ->orderBy('users.lname','ASC');
+
+        $status = 1;
+        if ($request->has('status')){
+            $q->where('status',$request->has('status'));
+        } else {
+            $q->where('status','=',1);
+        }
 
         $clients = $q->paginate(10);
         return view('clients.index',compact('clients'));
@@ -51,31 +62,33 @@ class ClientController extends Controller
      * @param  \App\Http\Requests\StoreClientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientRequest $request)
+    public function store(Request $request)
     {
-        //
-    }
+        // dd($request->request);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
-    }
+        $client = User::create([
+            'fname'     => Str::ucfirst(Str::lower($request->fname)),
+            'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'status'    => 1,
+            'role'      => 3
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        //
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $client->id.$photo->getClientOriginalName();
+            $path = Storage::disk('public')->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            $client->update(['avatar' => $avatar_name]);
+        }
+
+        Client::create([
+            'user_id' => $client->id,
+            'company' => $request->company,
+            'contact' => $request->contact,
+        ]);
+
+        return redirect(route('clients'))->with('alert', 'Client Added!');
     }
 
     /**
@@ -85,9 +98,42 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(Request $request, $id)
     {
-        //
+
+        $user = User::find($id);
+        $user->update([
+            'lname' => $request->lname,
+            'fname' => $request->fname,
+            'email' => $request->email,
+            'status' => $request->status,
+        ]);
+
+        if ($request->file('avatar')) {
+            $photo = $request->file('avatar');
+            $avatar_name = $id.$photo->getClientOriginalName();
+            
+            $storage = Storage::disk('public');
+            if ($user->avatar) {
+                $storage->delete('/asset/img/profile/'.$user->avatar);
+            }
+            $path = $storage->putFileAs('/asset/img/profile/', $photo, $avatar_name);
+            
+            $user->update(['avatar' => $avatar_name]);
+        }
+
+        if($request->password) {
+            $validated = Hash::make($request->password);
+            $user->update(['password' => $validated]);
+        }
+
+        $client = Client::where('user_id',$id);
+        $client->update([
+            'company' => $request->company,
+            'contact' => $request->contact,
+        ]);
+
+        return redirect(route('clients.detail',$id))->with('alert', 'Client Updated!');
     }
 
     /**
@@ -96,8 +142,11 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function delete($id)
     {
-        //
+        User::find($id)->delete();
+        Client::where('user_id',$id)->delete();
+        
+        return redirect(route('clients'))->with('alert', 'Client Deleted!');
     }
 }
