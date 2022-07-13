@@ -25,13 +25,25 @@ class ClientController extends Controller
 
         $status = 1;
         if ($request->has('status')){
-            $q->where('status',$request->has('status'));
-        } else {
-            $q->where('status','=',1);
+            switch($request->status) {
+                case 'active':
+                    $status = 1;
+                    break;
+                case 'inactive':
+                    $status = 0;
+                    break;
+                case 'all':
+                    $status = 3;
+                default:
+            }
+        }
+
+        if ($status != 3) {
+            $q->where('status','=',$status);
         }
 
         $clients = $q->paginate(10);
-        return view('clients.index',compact('clients'));
+        return view('clients.index',compact(['clients','status']));
     }
 
     /**
