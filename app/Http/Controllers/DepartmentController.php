@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -44,29 +45,13 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $admin = Department::create([
+            'dep_name'      => $request->name,
+            'dep_description'   => $request->description,
+            'dep_status'    => 1,
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Department $department)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Department $department)
-    {
-        //
+        return redirect(route('departments'))->with('alert', 'Department Added!');
     }
 
     /**
@@ -76,9 +61,16 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, $id)
     {
-        //
+        $department = Department::find($id);
+        $department->update([
+            'dep_name' => $request->name,
+            'dep_description' => $request->description,
+            'dep_status' => $request->status
+        ]);
+
+        return redirect(route('departments.detail',$id))->with('alert', 'Department Updated!');
     }
 
     /**
@@ -87,8 +79,12 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function delete($id)
     {
-        //
+        Department::find($id)->delete();
+        $staff = Staff::where('department_id',$id)
+            ->update(['department_id' => null]);
+        
+        return redirect(route('departments'))->with('alert', 'Department Deleted!');
     }
 }
