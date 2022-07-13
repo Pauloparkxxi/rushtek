@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Staff;
+use App\Models\Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -19,7 +21,16 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $q = User::where('users.id',Auth::user()->id);
+
+        if (Auth::user()->role == 2) {
+            $q->join('staff','users.id','=','staff.user_id')
+            ->leftJoin('departments','departments.id','=','staff.department_id');
+        } elseif (Auth::user()->role == 3) {
+            $q->join('clients','users.id','=','clients.user_id');
+        }
+
+        $user = $q->first();
         return view('profile.index',compact('user'));
     }
 
@@ -31,7 +42,6 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->request);
         $user = User::find(Auth::user()->id);
         $user->update([
             'lname' => $request->lname,
@@ -50,6 +60,19 @@ class ProfileController extends Controller
             $path = $storage->putFileAs('/asset/img/profile/', $photo, $avatar_name);
 
             $user->update(['avatar' => $avatar_name]);
+        }
+
+        if (Auth::user()->role == 2) {
+            Staff::where('user_id',Auth::user()->id)
+                ->update([
+                    'contact' => $request->contact,
+                    'birthdate' => $request->birthdate
+                ]);
+        } elseif (Auth::user()->role == 3) {
+            $client = Client::where('user_id',Auth::user()->id)
+                ->update([
+                    'contact' => $request->contact,
+                ]);
         }
 
         if($request->password) {

@@ -40,8 +40,20 @@
                 <div class="mt-4">
                     <x-label :value="__('Birthdate')" />
     
-                    <input value="2000-01-01" type="date" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="{{ $user->birthdate }}" type="date" name="birthdate" id="idBirthdate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
                 </div>
+
+                <div class="mt-4">
+                    <x-label :value="__('Department')" />
+    
+                    <input value="{{ $user->dep_name ? $user->dep_name : 'None' }}" type="text" name="department" id="idDepartment" class="w-full h-10 pl-3 pr-6 text-base bg-gray-200 placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" disabled>
+                </div>
+                @elseif ($user->role == 3)
+                <div class="mt-4">
+                    <x-label :value="__('Company')" />
+    
+                    <input value="{{ $user->company }}" type="text" name="department" id="idDepartment" class="w-full h-10 pl-3 pr-6 text-base bg-gray-200 placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" disabled>
+                </div> 
                 @endif
     
                 <div class="mt-4">
@@ -60,7 +72,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Contact')" />
     
-                    <input value="{{ $user->contact }}" type="text" name="user_mobile" id="idUserMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="{{ $user->contact }}" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
                 </div>
                 @endif
     
