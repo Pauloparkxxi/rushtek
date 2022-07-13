@@ -57,8 +57,7 @@ class StaffController extends Controller
             ->leftJoin('departments','departments.id','=','staff.department_id')
             ->first();
 
-        $departments = Department::where('dep_status',1)
-            ->orderBy('dep_name','ASC')
+        $departments = Department::orderBy('dep_name','ASC')
             ->get();
 
         return view('staffs.detail',compact(['user','departments']));

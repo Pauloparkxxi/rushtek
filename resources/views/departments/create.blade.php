@@ -13,7 +13,7 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
+            <form method="POST" autocomplete="off" action="{{ route('departments.store') }}">
                 @csrf
                 <div class="mt-4">
                     <x-label :value="__('Department Name')" />

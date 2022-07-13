@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if ($message = Session::get('alert'))
+        <x-alert  />
+    @endif
     <div class="overflow-x-auto">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
     <div class="w-full lg:w-3/6 m-6">
@@ -13,8 +16,9 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('dashboard') }}">
+            <form method="POST" autocomplete="off" action="{{ route('departments.update',$department->id) }}">
                 @csrf
+                @method('PUT')
                 <div class="mt-4">
                     <x-label :value="__('Department Name')" />
 
