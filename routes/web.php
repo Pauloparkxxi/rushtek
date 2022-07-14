@@ -19,6 +19,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 
 Route::group(['middleware' => 'auth'], function(){
     // Dashboard
@@ -58,11 +60,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
     Route::put('/admins/{id}',[AdminController::class, 'update'])->name('admins.update');
 
-    
     //Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
+    //Project
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+
+    //Report
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
 });
 
 require __DIR__.'/auth.php';
