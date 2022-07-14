@@ -17,14 +17,33 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $admins = User::where('role','=','1')
-            ->where('status','=','1')
-            ->orderBy('id','ASC')
-            ->paginate(10);
+        $q = User::where('role','=','1')
+            ->orderBy('id','ASC');
+
+        $status = 1;
+        if ($request->has('status')){
+            switch($request->status) {
+                case 'active':
+                    $status = 1;
+                    break;
+                case 'inactive':
+                    $status = 0;
+                    break;
+                case 'all':
+                    $status = 3;
+                default:
+            }
+        }
         
-        return view('admins.index',compact('admins'));
+        if ($status != 3) {
+            $q->where('status','=',$status);
+        } 
+
+        $admins = $q->paginate(10);
+        
+        return view('admins.index',compact(['admins','status']));
     }
 
     /**

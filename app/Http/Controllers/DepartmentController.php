@@ -13,12 +13,32 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departments = Department::where('dep_status','=','1')
-            ->orderBy('dep_name','ASC')
-            ->paginate(10);
-        return view('departments.index',compact('departments'));
+        $q = Department::orderBy('dep_name','ASC');
+        
+        $status = 1;
+        if ($request->has('status')){
+            switch($request->status) {
+                case 'active':
+                    $status = 1;
+                    break;
+                case 'inactive':
+                    $status = 0;
+                    break;
+                case 'all':
+                    $status = 3;
+                default:
+            }
+        }
+
+        if ($status != 3) {
+            $q->where('dep_status','=',$status);
+        }
+
+        $departments = $q->paginate(10);
+
+        return view('departments.index',compact(['departments','status']));
     }
 
     /**

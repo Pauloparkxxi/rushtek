@@ -18,22 +18,22 @@
                 <form class="flex flex-wrap justify-end items-center">
                     <div class="flex flex-wrap justify-between items-center lg:space-x-5 mx-4">
                         <div class="form-check">
-                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" `="statusRadio1" checked>
+                                <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" `="statusRadio1" onclick="active()" @if($status == 1) checked @endif>
                             <label class="form-check-label inline-block text-gray-800" for="statusRadio1">
                                 Active
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio2">
+                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio2" onclick="inactive()" @if($status == 0) checked @endif>
                             <label class="form-check-label inline-block text-gray-800" for="statusRadio2">
                                 Inactive
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio3">
-                        <label class="form-check-label inline-block text-gray-800" for="statusRadio3">
-                            All
-                        </label>
+                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio3" onclick="allstatus()" @if($status == 3) checked @endif>
+                            <label class="form-check-label inline-block text-gray-800" for="statusRadio3">
+                                All
+                            </label>
                         </div>
                     </div>
                     <span class="flex-none items-center">
@@ -83,10 +83,21 @@
                             @endforeach
                         </tbody>
                         </table>
-                        {{ $admins->links() }}
+                        {{ $admins->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function active() {
+            location.replace("{{ route('admins',['status' => 'active']) }}");
+        }
+        function inactive() {
+            location.replace("{{ route('admins',['status' => 'inactive']) }}");
+        }
+        function allstatus() {
+            location.replace("{{ route('admins',['status' => 'all']) }}");
+        }
+    </script>
 </x-app-layout>
