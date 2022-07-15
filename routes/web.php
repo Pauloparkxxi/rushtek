@@ -27,38 +27,41 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Staffs
-    Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
-    Route::get('/staffs/create',[StaffController::class, 'create'])->name('staffs.create');
-    Route::post('/staffs/create',[StaffController::class, 'store'])->name('staffs.store');
-    Route::get('/staffs/delete/{id}',[StaffController::class, 'delete'])->name('staffs.delete');
-    Route::get('/staffs/{id}',[StaffController::class, 'detail'])->name('staffs.detail');
-    Route::put('/staffs/{id}',[StaffController::class, 'update'])->name('staffs.update');
+    Route::group(['middleware' => 'role:1'], function() {
+        // Staffs
+        Route::get('/staffs',[StaffController::class, 'index'])->name('staffs');
+        Route::get('/staffs/create',[StaffController::class, 'create'])->name('staffs.create');
+        Route::post('/staffs/create',[StaffController::class, 'store'])->name('staffs.store');
+        Route::get('/staffs/delete/{id}',[StaffController::class, 'delete'])->name('staffs.delete');
+        Route::get('/staffs/{id}',[StaffController::class, 'detail'])->name('staffs.detail');
+        Route::put('/staffs/{id}',[StaffController::class, 'update'])->name('staffs.update');
 
-    
-    // Clients
-    Route::get('/clients',[ClientController::class, 'index'])->name('clients');
-    Route::get('/clients/create',[ClientController::class, 'create'])->name('clients.create');
-    Route::post('/clients/create',[ClientController::class, 'store'])->name('clients.store');
-    Route::get('/clients/delete/{id}',[ClientController::class, 'delete'])->name('clients.delete');
-    Route::get('/clients/{id}',[ClientController::class, 'detail'])->name('clients.detail');
-    Route::put('/clients/{id}',[ClientController::class, 'update'])->name('clients.update');
+        //Admin
+        Route::get('/admins', [AdminController::class, 'index'])->name('admins');
+        Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
+        Route::post('/admins/create',[AdminController::class, 'store'])->name('admins.store');
+        Route::get('/admins/delete/{id}',[AdminController::class, 'delete'])->name('admins.delete');
+        Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
+        Route::put('/admins/{id}',[AdminController::class, 'update'])->name('admins.update');
+        
+        //Departments
+        Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
+        Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+        Route::post('/departments/create', [DepartmentController::class, 'store'])->name('departments.store');
+        Route::get('/departments/delete/{id}', [DepartmentController::class, 'delete'])->name('departments.delete');
+        Route::get('/departments/{id}', [DepartmentController::class, 'detail'])->name('departments.detail');
+        Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('departments.update');
+    });
 
-    //Departments
-    Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
-    Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
-    Route::post('/departments/create', [DepartmentController::class, 'store'])->name('departments.store');
-    Route::get('/departments/delete/{id}', [DepartmentController::class, 'delete'])->name('departments.delete');
-    Route::get('/departments/{id}', [DepartmentController::class, 'detail'])->name('departments.detail');
-    Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('departments.update');
-    
-    //Admin
-    Route::get('/admins', [AdminController::class, 'index'])->name('admins');
-    Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
-    Route::post('/admins/create',[AdminController::class, 'store'])->name('admins.store');
-    Route::get('/admins/delete/{id}',[AdminController::class, 'delete'])->name('admins.delete');
-    Route::get('/admins/{id}', [AdminController::class, 'detail'])->name('admins.detail');
-    Route::put('/admins/{id}',[AdminController::class, 'update'])->name('admins.update');
+    Route::group(['middleware' => 'role:1,2'], function() {
+        // Clients
+        Route::get('/clients',[ClientController::class, 'index'])->name('clients');
+        Route::get('/clients/create',[ClientController::class, 'create'])->name('clients.create');
+        Route::post('/clients/create',[ClientController::class, 'store'])->name('clients.store');
+        Route::get('/clients/delete/{id}',[ClientController::class, 'delete'])->name('clients.delete');
+        Route::get('/clients/{id}',[ClientController::class, 'detail'])->name('clients.detail');
+        Route::put('/clients/{id}',[ClientController::class, 'update'])->name('clients.update');
+    });
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
