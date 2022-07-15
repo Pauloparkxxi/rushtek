@@ -1,3 +1,8 @@
+<?php 
+      if(!isset($_SESSION['logged_in'])){
+          header("Location: login.php");  
+      }
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
