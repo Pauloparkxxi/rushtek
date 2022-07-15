@@ -26,6 +26,14 @@ class StaffController extends Controller
             ->orderBy('users.lname','ASC');
 
         $status = 1;
+        $search = '';
+        if ($request->has('search') && Str::length($request->search) > 0) {
+            $search = $request->search;
+            $q->where('fname','Like','%'.$search.'%')
+                ->orWhere('lname','Like','%'.$search.'%')
+                ->orWhere('email','Like','%'.$search.'%')
+                ->orWhere('dep_name','Like','%'.$search.'%');
+        }
         if ($request->has('status')){
             switch($request->status) {
                 case 'active':
@@ -45,7 +53,7 @@ class StaffController extends Controller
         }
         
         $staffs = $q->paginate(10);
-        return view('staffs.index',compact(['staffs','status']));
+        return view('staffs.index',compact(['staffs','status','search']));
     }
 
     /**

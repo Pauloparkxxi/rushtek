@@ -24,6 +24,13 @@ class ClientController extends Controller
         ->orderBy('users.lname','ASC');
 
         $status = 1;
+        $search = '';
+        if ($request->has('search') && Str::length($request->search) > 0) {
+            $search = $request->search;
+            $q->where('fname','Like','%'.$search.'%')
+                ->orWhere('lname','Like','%'.$search.'%')
+                ->orWhere('company','Like','%'.$search.'%');
+        }
         if ($request->has('status')){
             switch($request->status) {
                 case 'active':
@@ -43,7 +50,7 @@ class ClientController extends Controller
         }
 
         $clients = $q->paginate(10);
-        return view('clients.index',compact(['clients','status']));
+        return view('clients.index',compact(['clients','status','search']));
     }
 
     /**

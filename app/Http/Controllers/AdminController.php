@@ -23,6 +23,13 @@ class AdminController extends Controller
             ->orderBy('id','ASC');
 
         $status = 1;
+        $search = '';
+        if ($request->has('search') && Str::length($request->search) > 0) {
+            $search = $request->search;
+            $q->where('fname','Like','%'.$search.'%')
+                ->orWhere('lname','Like','%'.$search.'%')
+                ->orWhere('email','Like','%'.$search.'%');
+        }
         if ($request->has('status')){
             switch($request->status) {
                 case 'active':
@@ -43,7 +50,7 @@ class AdminController extends Controller
 
         $admins = $q->paginate(10);
         
-        return view('admins.index',compact(['admins','status']));
+        return view('admins.index',compact(['admins','status','search']));
     }
 
     /**
@@ -110,7 +117,6 @@ class AdminController extends Controller
             $photo = $request->file('avatar');
             $avatar_name = $id.$photo->getClientOriginalName();
             
-            // Storage::delete('bread/'.$product->photo);
             $storage = Storage::disk('public');
             if ($user->avatar) {
                 $storage->delete('/asset/img/profile/'.$user->avatar);

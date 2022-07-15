@@ -15,29 +15,29 @@
                         </a>
                     </span>
                 </span>
-                <form class="flex flex-wrap justify-end items-center">
+                <form method="GET" autocomplete="off" action={{ route('admins') }} class="flex flex-wrap justify-end items-center">
                     <div class="flex flex-wrap justify-between items-center lg:space-x-5 mx-4">
                         <div class="form-check">
-                                <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" `="statusRadio1" onclick="active()" @if($status == 1) checked @endif>
+                                <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" value="active" type="radio" name="status" id="idStatus" @if($status == 1) checked @endif>
                             <label class="form-check-label inline-block text-gray-800" for="statusRadio1">
                                 Active
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio2" onclick="inactive()" @if($status == 0) checked @endif>
+                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" value="inactive" type="radio" name="status" id="idStatus" @if($status == 0) checked @endif>
                             <label class="form-check-label inline-block text-gray-800" for="statusRadio2">
                                 Inactive
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" type="radio" name="statusRadio" id="statusRadio3" onclick="allstatus()" @if($status == 3) checked @endif>
+                            <input class="form-check-input appearance-none rounded-full h-4 w-4 checked:bg-green-600 text-green-600 mt-1 align-top float-left cursor-pointer" value="all" type="radio" name="status" id="idStatus" @if($status == 3) checked @endif>
                             <label class="form-check-label inline-block text-gray-800" for="statusRadio3">
                                 All
                             </label>
                         </div>
                     </div>
                     <span class="flex-none items-center">
-                        <input type="search" id="default-search" class="text-sm text-green-900 bg-gray-50 rounded-lg border border-green-400 focus:ring-green-500" placeholder="Search Admins" required>
+                        <input type="search" value="{{ $search }}" name="search" id="idSearch" class="text-sm text-green-900 bg-gray-50 rounded-lg border border-green-400 focus:ring-green-500" placeholder="Search Admins">
                         <button type="submit" class="text-white bg-green-700 hover:bg-green-800 text-sm rounded-lg px-4 py-2 align-middle">
                             <svg style="height: 18px; width: 18px; color: rgb(255, 255, 255);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" fill="#ffffff"></path> </svg>
                         </button>
@@ -89,15 +89,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function active() {
-            location.replace("{{ route('admins',['status' => 'active']) }}");
-        }
-        function inactive() {
-            location.replace("{{ route('admins',['status' => 'inactive']) }}");
-        }
-        function allstatus() {
-            location.replace("{{ route('admins',['status' => 'all']) }}");
-        }
-    </script>
 </x-app-layout>

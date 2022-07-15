@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
@@ -18,6 +19,11 @@ class DepartmentController extends Controller
         $q = Department::orderBy('dep_name','ASC');
         
         $status = 1;
+        $search = '';
+        if ($request->has('search') && Str::length($request->search) > 0) {
+            $search = $request->search;
+            $q->where('dep_name','Like','%'.$search.'%');
+        }
         if ($request->has('status')){
             switch($request->status) {
                 case 'active':
@@ -38,7 +44,7 @@ class DepartmentController extends Controller
 
         $departments = $q->paginate(10);
 
-        return view('departments.index',compact(['departments','status']));
+        return view('departments.index',compact(['departments','status','search']));
     }
 
     /**
