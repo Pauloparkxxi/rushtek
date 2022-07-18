@@ -20,7 +20,14 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $q = Project::orderBy('name','ASC');
+
         $status = 1;
+        $search = '';
+        if ($request->has('search') && Str::length($request->search) > 0) {
+            $search = $request->search;
+            $q->where('name','Like','%'.$search.'%');
+        }
         if ($request->has('status')){
             switch($request->status) {
                 case 'active':
@@ -34,7 +41,14 @@ class ProjectController extends Controller
                 default:
             }
         }
-        return view('projects.index',compact(['status']));
+
+        if ($status != 3) {
+            $q->where('status','=',$status);
+        }
+
+        $projects = $q->paginate(10);
+
+        return view('projects.index',compact(['projects','search','status']));
     }
 
     /**
