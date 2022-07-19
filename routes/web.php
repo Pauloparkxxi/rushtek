@@ -69,6 +69,11 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
 
     //Project
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+    Route::get('/projects/create',[ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects/create',[ProjectController::class, 'store'])->name('projects.store');
+    Route::get('/projects/delete/{id}',[ProjectController::class, 'delete'])->name('projects.delete');
+    Route::get('/projects/{id}',[ProjectController::class, 'detail'])->name('projects.detail');
+    Route::put('/projects/{id}',[ProjectController::class, 'update'])->name('projects.update');
 
     //Report
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
