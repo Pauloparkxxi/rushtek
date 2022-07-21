@@ -35,7 +35,7 @@
                 });
 
                 $('#idProjectMembers').select2({
-                    placeholder: 'Select an Option'
+                    placeholder: 'Select Project Members'
                 });
             });
         </script>

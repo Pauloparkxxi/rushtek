@@ -91,7 +91,7 @@ class ProjectController extends Controller
             'description'   => $request->description,
             'start_date'    => $request->start_date,
             'end_date'      => $request->end_date,
-            'cost'          => $request->cost,
+            'budget'          => $request->budget,
             'client_id'     => $request->client,
             'status'        => 1
         ]);
@@ -154,7 +154,7 @@ class ProjectController extends Controller
             'description'   => $request->description,
             'start_date'    => $request->start_date,
             'end_date'      => $request->end_date,
-            'cost'          => $request->cost,
+            'budget'        => $request->budget,
             'client_id'     => $request->client,
             'status'        => $request->status,
         ]);

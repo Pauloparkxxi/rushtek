@@ -7,7 +7,7 @@
     <div class="w-full lg:w-3/6 m-6">
         <span class="flex items-center space-x-4">
             <h1 class="text-5xl font-bold leading-tight">Edit Project</h1>
-            <a href="{{ route('projects') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+            <a href="{{ route('tasks',['id' => $project->id]) }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
             focus:outline-none hover:bg-green-800">
                 View Tasks
             </a>
@@ -47,9 +47,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label :value="__('Cost')" />
+                    <x-label :value="__('Budget')" />
 
-                    <input value="{{$project->cost}}" type="number" name="cost" id="idCost" min="0" class="w-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
+                    <input value="{{$project->budget}}" type="number" name="budget" id="idBudget" min="0" class="w-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
                 </div>
 
                 <div class="mt-4">
