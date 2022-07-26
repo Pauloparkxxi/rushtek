@@ -26,9 +26,11 @@ class AdminController extends Controller
         $search = '';
         if ($request->has('search') && Str::length($request->search) > 0) {
             $search = $request->search;
-            $q->where('fname','Like','%'.$search.'%')
+            $q->where(function ($query) use ($search){
+                $query->where('fname','Like','%'.$search.'%')
                 ->orWhere('lname','Like','%'.$search.'%')
                 ->orWhere('email','Like','%'.$search.'%');
+            });
         }
         if ($request->has('status')){
             switch($request->status) {
@@ -68,6 +70,8 @@ class AdminController extends Controller
             ->where('users.id','=',$user_id)
             ->first();
 
+
+        // dd($user,$user_id);
         return view('admins.detail',compact('user'));
     }
 
