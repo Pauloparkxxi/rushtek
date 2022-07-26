@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
 
         DB::table('users')->insert([
-            'fname' => 'Juan',
-            'lname' => 'Cruz',
+            'fname' => 'Paulo',
+            'lname' => 'Bollosa',
             'email' => 'admin@example.com',
             'avatar' => '1.jpg',
             'role'  => 1,
@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $staff_id = DB::table('users')->insertGetId([
-            'fname' => 'Pedro',
-            'lname' => 'Morris',
+            'fname' => 'April Joie',
+            'lname' => 'Enaño',
             'email' => 'staff@example.com',
             'avatar' => '',
             'role'  => 2,
@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $client_id = DB::table('users')->insertGetId([
-            'fname' => 'Tomas',
-            'lname' => 'Philip',
+            'fname' => 'Matthew',
+            'lname' => 'Carlot',
             'email' => 'client@example.com',
             'avatar' => '',
             'role'  => 3,
@@ -57,8 +57,9 @@ class DatabaseSeeder extends Seeder
         DB::table('clients')->insert([
             'user_id' => $client_id,
             'contact' => '09123456789',
-            'company' => 'Company 1',
+            'company' => 'AMA Cavite',
         ]);
+        
 
         \App\Models\Department::factory(100)->create();
         \App\Models\User::factory(100)->create();
