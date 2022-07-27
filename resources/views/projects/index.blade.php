@@ -8,12 +8,15 @@
             <div class="m-2 flex flex-wrap justify-between items-center">
                 <span class="flex flex-wrap items-center">
                     <h1 class="text-5xl mx-2 font-bold leading-tight">Projects</h1>
+                    @if (Auth::user()->role != 2 && Auth::user()->role != 3)
                     <span class="flex-none justify-between space-x-2">
                         <a href="{{ route('projects.create') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
                             Add Project
                         </a>
                     </span>
+                    @endif
+                    
                 </span>
                 <form method="GET" autocomplete="off" action={{ route('projects') }} class="flex flex-wrap justify-end items-center">
                     <div class="flex flex-wrap justify-between items-center lg:space-x-5 mx-4">
@@ -81,9 +84,11 @@
                                         <a href="{{ route('projects.detail', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                             View
                                         </a>
-                                        <a href="{{ route('projects.delete', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
+                                        @if (Auth::user()->role != 2  && Auth::user()->role != 3)
+                                        <a href="{{ route('projects') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
                                             Delete
                                         </a>
+                                        @endif
                                     </span>
                                 </td>
                             </tr>
