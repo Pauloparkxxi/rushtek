@@ -8,14 +8,14 @@
             <div class="m-2 flex flex-wrap justify-between items-center">
                 <span class="flex flex-wrap items-center">
                     <h1 class="text-5xl mx-2 font-bold leading-tight">Projects</h1>
-                    @if (Auth::user()->role != 2 && Auth::user()->role != 3)
                     <span class="flex-none justify-between space-x-2">
+                        @if (Auth::user()->role != 2 && Auth::user()->role != 3)
                         <a href="{{ route('projects') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
                             Add Project
                         </a>
+                        @endif
                     </span>
-                    @endif
                     
                 </span>
                 <form class="flex flex-wrap justify-end items-center">
