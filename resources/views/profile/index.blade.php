@@ -77,7 +77,7 @@
                 @endif
     
                 <div class="flex items-center justify-end mt-4">
-                    <x-button class="ml-3">
+                    <x-button class="ml-3" onclick="return confirm('Are you sure you want to update your profile?')">
                         {{ __('Update Profile') }}
                     </x-button>
                 </div>
