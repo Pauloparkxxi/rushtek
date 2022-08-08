@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use File;
 
 class ProjectController extends Controller
@@ -22,15 +23,36 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $q = Project::select(['projects.*', 'clients.company'])
+        $q = Project::selectRaw('
+                projects.id,
+                projects.name,
+                projects.start_date,
+                projects.end_date,
+                count(tasks.id) as total_tasks,
+                sum(
+                    case
+                        when tasks.status = 3 then 1
+                        else 0
+                    end
+                ) as finished_tasks,
+                clients.company
+            ')
             ->leftJoin('clients','clients.user_id','=','projects.client_id')
-            ->orderBy('name','ASC');
+            ->leftJoin('tasks','tasks.project_id','=','projects.id')
+            ->groupBy([
+                'projects.id',
+                'projects.name',
+                'projects.start_date',
+                'projects.end_date',
+                'clients.company'
+            ])
+            ->orderBy('projects.name','ASC');
 
         $status = 1;
         $search = '';
         if ($request->has('search') && Str::length($request->search) > 0) {
             $search = $request->search;
-            $q->where('name','Like','%'.$search.'%');
+            $q->where('projects.name','Like','%'.$search.'%');
         }
         if ($request->has('status')){
             switch($request->status) {
@@ -47,10 +69,11 @@ class ProjectController extends Controller
         }
 
         if ($status != 3) {
-            $q->where('status','=',$status);
+            $q->where('projects.status','=',$status);
         }
 
         $projects = $q->paginate(10);
+
         // dd($projects);
 
         return view('projects.index',compact(['projects','search','status']));
@@ -159,9 +182,9 @@ class ProjectController extends Controller
             'status'        => $request->status,
         ]);
 
-        $project_members = ProjectMember::where('project_id',$id)->delete();
-
+        
         if($request->projectMembers) {
+            $project_members = ProjectMember::where('project_id',$id)->delete();
             foreach ($request->projectMembers as $member) {
                 ProjectMember::create([
                     'project_id'    => $project->id,

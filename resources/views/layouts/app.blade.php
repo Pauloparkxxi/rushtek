@@ -37,6 +37,10 @@
                 $('#idProjectMembers').select2({
                     placeholder: 'Select Project Members'
                 });
+
+                $('#idTaskMembers').select2({
+                    placeholder: 'Select Task Members'
+                });
             });
         </script>
         

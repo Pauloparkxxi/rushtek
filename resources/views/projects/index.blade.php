@@ -13,7 +13,6 @@
                         focus:outline-none hover:bg-green-800">
                             Add Project
                         </a>
-                        @endif
                     </span>
                     
                 </span>
@@ -62,35 +61,43 @@
                             </thead>
                             <tbody>
                             @foreach ($projects as $project)
-                            <tr class="border-b border-gray-200 hover:bg-green-100">
-                                <td class="p-2 items-center flex">
-                                    <span class="font-medium mx-3">{{$project->name}}</span>
-                                </td>
-                                <td class="p-2 hidden md:table-cell">
-                                    <span class="font-medium">{{$project->company ? $project->company : 'None'}}</span>
-                                </td>
-                                <td class="p-2 hidden md:table-cell">
-                                    <span class="font-medium">{{$project->start_date}}</span>
-                                </td>
-                                <td class="p-2 hidden md:table-cell">
-                                    <span class="font-medium">{{$project->end_date}}</span>
-                                </td>
-                                <td class="p-2 hidden sm:table-cell">
-                                    <span class="font-medium">80%</span>
-                                </td>
-                                <td class="p-2">
-                                    <span class="flex flex-wrap items-center justify-center space-x-2">
-                                        <a href="{{ route('projects.detail', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
-                                            View
-                                        </a>
-                                        @if (Auth::user()->role != 2  && Auth::user()->role != 3)
-                                        <a href="{{ route('projects') }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
-                                            Delete
-                                        </a>
-                                        @endif
-                                    </span>
-                                </td>
-                            </tr>
+                            <a href="">
+                                <tr class="border-b border-gray-200 hover:bg-green-100">
+                                    <td class="p-2 items-center flex">
+                                        <span class="font-medium mx-3">{{$project->name}}</span>
+                                    </td>
+                                    <td class="p-2 hidden md:table-cell">
+                                        <span class="font-medium">{{$project->company ? $project->company : 'None'}}</span>
+                                    </td>
+                                    <td class="p-2 hidden md:table-cell">
+                                        <span class="font-medium">{{$project->start_date}}</span>
+                                    </td>
+                                    <td class="p-2 hidden md:table-cell">
+                                        <span class="font-medium">{{$project->end_date}}</span>
+                                    </td>
+                                    <td class="p-2 hidden sm:table-cell">
+                                        <span class="font-medium">
+                                            @if ($project->total_tasks)
+                                                {{($project->finished_tasks / $project->total_tasks) * 100}}%
+                                            @else
+                                                No Tasks
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td class="p-2">
+                                        <span class="flex flex-wrap items-center justify-center space-x-2">
+                                            <a href="{{ route('projects.detail', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
+                                                View
+                                            </a>
+                                            @if (Auth::user()->role == 1)
+                                            <a href="{{ route('projects.delete', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">
+                                                Delete
+                                            </a>
+                                            @endif
+                                        </span>
+                                    </td>
+                                </tr>
+                            </a>
                             @endforeach
                         </tbody>
                         </table>

@@ -36,6 +36,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if (count($tasks) == 0)
+                            <tr class="border-b border-gray-200 hover:bg-green-100">
+                                <td colspan="6" class="text-center">
+                                    <span class="font-medium">No Tasks Yet</span>
+                                </td>
+                            </tr>
+                            @else
                             @foreach ($tasks as $task)
                             {{-- @for ($i = 1; $i <= 5; $i++) --}}
                             <tr class="border-b border-gray-200 hover:bg-green-100">
@@ -80,6 +87,7 @@
                             </tr>
                             {{-- @endfor --}}
                             @endforeach
+                            @endif
                         </tbody>
                         </table>
                     </div>

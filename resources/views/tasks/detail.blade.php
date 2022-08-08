@@ -1,11 +1,14 @@
 <x-app-layout>
+    @if ($message = Session::get('alert'))
+          <x-alert  />
+    @endif
     <div class="overflow-x-auto">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
     <div class="w-full lg:w-3/6 m-6">
         <h1 class="text-3xl mx-2 font-bold leading-tight">Project: {{$project->name}}</h1>
         <span class="flex items-center space-x-4">
-            <h1 class="text-5xl font-bold leading-tight">Add Task</h1>
-            <a href="{{ route('projects.detail',$project->id) }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+            <h1 class="text-5xl font-bold leading-tight">Update Task</h1>
+            <a href="{{ route('tasks',$project->id) }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
             focus:outline-none hover:bg-green-800">
                 Return
             </a>
@@ -14,8 +17,9 @@
         <div class="bg-white shadow-md p-5">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" autocomplete="off" action="{{ route('tasks.store', $project->id) }}" enctype="multipart/form-data">
+            <form method="POST" autocomplete="off" action="{{ route('tasks.update', $task->id) }}" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
 
                 <div class="mt-4">
                     <x-label :value="__('Name')" />
@@ -31,9 +35,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label :value="__('Project Members')" />
+                    <x-label :value="__('Task Members')" />
     
-                    <select name="projectMembers[]" id="idProjectMembers" class="rushtek-multiple w-full h-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" multiple="multiple">
+                    <select name="taskMembers[]" id="idTaskMembers" class="rushtek-multiple w-full h-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" multiple="multiple">
                         @foreach ($project_members as $project_member)
                             <option value="{{ $project_member->user_id }}" @if (in_array($project_member->user_id,$members)) selected @endif>{{ $project_member->lname }}, {{ $project_member->fname }}</option>
                         @endforeach
@@ -54,16 +58,16 @@
                     <x-label :value="__('Status')" />
     
                     <select name="status" id="status" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline">
-                        <option value="1">Todo</option>
-                        <option value="2">Work in Progress</option>
-                        <option value="3">Finish</option>
+                        <option value="1" @if($task->status == 1) selected @endif>Todo</option>
+                        <option value="2" @if($task->status == 2) selected @endif>Work in Progress</option>
+                        <option value="3" @if($task->status == 3) selected @endif>Finish</option>
                     </select>
                 </div>
     
                 <div class="mt-4">
-                    <x-label :value="__('Progress: 0%')" id="idLblProgress"/>
+                    <x-label :value="__('Progress: '.$task->progress.'%')" id="idLblProgress"/>
     
-                    <input type="range" min="0" max="100" value="0" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)">
+                    <input type="range" min="0" max="100" value="{{$task->progress}}" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)">
                 </div>
     
                 <div class="mt-4">
@@ -73,8 +77,8 @@
                 </div>
     
                 <div class="flex items-center justify-end mt-4">
-                    <x-button class="ml-3" onclick="return confirm('Are you sure to add?')">
-                        {{ __('Add Task') }}
+                    <x-button class="ml-3" onclick="return confirm('Are you sure to update task?')">
+                        {{ __('Update Task') }}
                     </x-button>
                 </div>
             </form>

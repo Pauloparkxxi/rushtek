@@ -66,9 +66,9 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
         Route::get('/projects/tasks/{id}',[TaskController::class, 'index'])->name('tasks');
         Route::get('/projects/tasks/{id}/create',[TaskController::class,'create'])->name('tasks.create');
         Route::post('/projects/tasks/{id}/create',[TaskController::class,'store'])->name('tasks.store');
-        Route::get('/tasks/{id}',[TaskController::class,'detail'])->name('tasks.detail');
         Route::get('/tasks/delete/{id}',[TaskController::class,'delete'])->name('tasks.delete');
-        // Route::put('/tasks/{$id}',[TaskController::class,'update'])->name('tasks.update');
+        Route::get('/tasks/{id}',[TaskController::class,'detail'])->name('tasks.detail');
+        Route::put('/tasks/{id}',[TaskController::class,'update'])->name('tasks.update');
     });
 
     //Profile
