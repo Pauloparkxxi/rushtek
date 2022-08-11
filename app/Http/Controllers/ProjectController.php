@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use File;
 
 class ProjectController extends Controller
@@ -47,6 +48,13 @@ class ProjectController extends Controller
                 'clients.company'
             ])
             ->orderBy('projects.name','ASC');
+
+        if (Auth::user()->role == 2) {
+            $q->where('project_members.user_id','=',Auth::user()->id)
+            ->join('project_members','project_members.project_id','=','projects.id');
+        } else if (AUth::user()->role == 3) {
+            $q->where('projects.client_id','=',Auth::user()->id);
+        }
 
         $status = 1;
         $search = '';
@@ -119,11 +127,13 @@ class ProjectController extends Controller
             'status'        => 1
         ]);
 
-        foreach ($request->projectMembers as $member) {
-            ProjectMember::create([
-                'project_id'    => $project->id,
-                'user_id'       => $member
-            ]);
+        if($request->projectMembers) {
+            foreach ($request->projectMembers as $member) {
+                ProjectMember::create([
+                    'project_id'    => $project->id,
+                    'user_id'       => $member
+                ]);
+            }
         }
 
         return redirect(route('projects'))->with('alert', 'Project Added!');
@@ -172,26 +182,33 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $project = Project::find($id);
-        $project->update([
-            'name'          => $request->name,
-            'description'   => $request->description,
-            'start_date'    => $request->start_date,
-            'end_date'      => $request->end_date,
-            'budget'        => $request->budget,
-            'client_id'     => $request->client,
-            'status'        => $request->status,
-        ]);
+
+        if (Auth::user()->role == 1) {
+            $project->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'start_date'    => $request->start_date,
+                'end_date'      => $request->end_date,
+                'budget'        => $request->budget,
+                'client_id'     => $request->client,
+                'status'        => $request->status,
+            ]);
+            if($request->projectMembers) {
+                $project_members = ProjectMember::where('project_id',$id)->delete();
+                foreach ($request->projectMembers as $member) {
+                    ProjectMember::create([
+                        'project_id'    => $project->id,
+                        'user_id'       => $member
+                    ]);
+                }
+            }
+        } else if (Auth::user()->role == 2) {
+            $project->update([
+                'description'   =>  $request->description
+            ]);
+        }
 
         
-        if($request->projectMembers) {
-            $project_members = ProjectMember::where('project_id',$id)->delete();
-            foreach ($request->projectMembers as $member) {
-                ProjectMember::create([
-                    'project_id'    => $project->id,
-                    'user_id'       => $member
-                ]);
-            }
-        }
 
         // dd($project);
 

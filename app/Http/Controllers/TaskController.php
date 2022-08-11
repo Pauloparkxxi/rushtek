@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskMember;
 use App\Models\ProjectMember;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -73,27 +74,34 @@ class TaskController extends Controller
 
     public function update(Request $request, $id) {
         $task = Task::find($id);
-        
-        $task->update([
-            'name'          => $request->name,
-            'description'   => $request->description,
-            'start_date'    => $request->start_date,
-            'end_date'      => $request->end_date,
-            'progress'      => $request->progress,
-            'cost'          => $request->cost,
-            'status'        => $request->status
-        ]);
 
-        if ($request->taskMembers) {
-            //Recreate Task Members
-            // dd($request->request);
-            TaskMember::where('task_id',$id)->delete();
-            foreach ($request->taskMembers as $member) {
-                $task_member = TaskMember::create([
-                    'task_id'   => $task->id,
-                    'user_id'   => $member
-                ]);
+        if (Auth::user()->role == 1) {
+            $task->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'start_date'    => $request->start_date,
+                'end_date'      => $request->end_date,
+                'progress'      => $request->progress,
+                'cost'          => $request->cost,
+                'status'        => $request->status
+            ]);
+    
+            if ($request->taskMembers) {
+                //Recreate Task Members
+                TaskMember::where('task_id',$id)->delete();
+                foreach ($request->taskMembers as $member) {
+                    $task_member = TaskMember::create([
+                        'task_id'   => $task->id,
+                        'user_id'   => $member
+                    ]);
+                }
             }
+        } else if (Auth::user()->role == 2) {
+            $task->update([
+                'description'   => $request->description,
+                'progress'      => $request->progress,
+                'status'        => $request->status
+            ]);
         }
 
         return redirect(route('tasks.detail',$id))->with('alert', 'Task Updated!');

@@ -54,6 +54,9 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
         Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('departments.update');
     });
 
+    Route::get('/projects/tasks/{id}',[TaskController::class, 'index'])->name('tasks');
+    Route::get('/tasks/{id}',[TaskController::class,'detail'])->name('tasks.detail');
+
     Route::group(['middleware' => 'role:1,2'], function() {
         // Clients
         Route::get('/clients',[ClientController::class, 'index'])->name('clients');
@@ -63,11 +66,10 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
         Route::get('/clients/{id}',[ClientController::class, 'detail'])->name('clients.detail');
         Route::put('/clients/{id}',[ClientController::class, 'update'])->name('clients.update');
        
-        Route::get('/projects/tasks/{id}',[TaskController::class, 'index'])->name('tasks');
+        
         Route::get('/projects/tasks/{id}/create',[TaskController::class,'create'])->name('tasks.create');
         Route::post('/projects/tasks/{id}/create',[TaskController::class,'store'])->name('tasks.store');
         Route::get('/tasks/delete/{id}',[TaskController::class,'delete'])->name('tasks.delete');
-        Route::get('/tasks/{id}',[TaskController::class,'detail'])->name('tasks.detail');
         Route::put('/tasks/{id}',[TaskController::class,'update'])->name('tasks.update');
     });
 

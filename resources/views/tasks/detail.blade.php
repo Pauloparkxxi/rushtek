@@ -24,20 +24,20 @@
                 <div class="mt-4">
                     <x-label :value="__('Name')" />
 
-                    <input value="{{$task->name}}" type="text" name="name" id="idName" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
+                    <input value="{{$task->name}}" type="text" name="name" id="idName" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" required @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
 
                 <div class="mt-4">
                     <x-label :value="__('Description')" />
 
-                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500" placeholder="Your message...">{{$task->description}}</textarea>
+                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500 @if(Auth::user()->role == 3)bg-gray-200 @endif" placeholder="Your message..." @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>{{$task->description}}</textarea>
 
                 </div>
 
                 <div class="mt-4">
                     <x-label :value="__('Task Members')" />
     
-                    <select name="taskMembers[]" id="idTaskMembers" class="rushtek-multiple w-full h-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" multiple="multiple">
+                    <select name="taskMembers[]" id="idTaskMembers" class="rushtek-multiple w-full h-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" multiple="multiple"  @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                         @foreach ($project_members as $project_member)
                             <option value="{{ $project_member->user_id }}" @if (in_array($project_member->user_id,$members)) selected @endif>{{ $project_member->lname }}, {{ $project_member->fname }}</option>
                         @endforeach
@@ -46,18 +46,18 @@
 
                 <div class="mt-4">
                     <x-label :value="__('Start Date')" />
-                    <input value="{{$project->start_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="start_date" id="idStartDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="{{$project->start_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="start_date" id="idStartDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
 
                 <div class="mt-4">
                     <x-label :value="__('End Date')" />
-                    <input value="{{$project->end_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="end_date" id="idEndDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="{{$project->end_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="end_date" id="idEndDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Status')" />
     
-                    <select name="status" id="status" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline">
+                    <select name="status" id="status" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline  @if(Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role == 3) disabled @endif>
                         <option value="1" @if($task->status == 1) selected @endif>Todo</option>
                         <option value="2" @if($task->status == 2) selected @endif>Work in Progress</option>
                         <option value="3" @if($task->status == 3) selected @endif>Finish</option>
@@ -67,20 +67,22 @@
                 <div class="mt-4">
                     <x-label :value="__('Progress: '.$task->progress.'%')" id="idLblProgress"/>
     
-                    <input type="range" min="0" max="100" value="{{$task->progress}}" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)">
+                    <input type="range" min="0" max="100" value="{{$task->progress}}" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Cost')" />
     
-                    <input value="0" type="number" min="0" name="cost" id="idCost" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="0" type="number" min="0" name="cost" id="idCost" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
     
+                @if (Auth::user()->role == 1 || Auth::user()->role ==  2)
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-3" onclick="return confirm('Are you sure to update task?')">
                         {{ __('Update Task') }}
                     </x-button>
                 </div>
+                @endif
             </form>
         </div>
         </div>
