@@ -150,7 +150,7 @@
                                     </span>
                                 </td>
                                 <td class="py-2 px-6 text-left">
-                                    <span class="font-medium">{{ ($project->finished_tasks / $project->total_tasks) * 100 }}% Complete</span>
+                                    <span class="font-medium">{{ round(($project->finished_tasks / $project->total_tasks) * 100) }}% Complete</span>
                                 </td>
                             </tr>
                             @endforeach

@@ -64,12 +64,12 @@ class DashboardController extends Controller
                         when tasks.status = 3 then 1
                         else 0
                     end
-                ) as finished_tasks
+                ) as finished_tasks,
+                max(tasks.updated_at) as updated
             ')
             ->join('tasks','tasks.project_id','=','projects.id')
             ->groupBy([
                 'projects.id',
-                'projects.name',
             ]);
 
         if (Auth::user()->role == 2) {
@@ -79,7 +79,7 @@ class DashboardController extends Controller
             $latestProjects->where('projects.client_id','=',Auth::user()->id);
         }
 
-        $latestProjects = $latestProjects->orderBy('tasks.updated_at','desc')
+        $latestProjects = $latestProjects->orderBy('updated','desc')
             ->take(5)
             ->get();
 
