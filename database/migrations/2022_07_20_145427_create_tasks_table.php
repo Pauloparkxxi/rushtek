@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('status');
             $table->integer('progress');
             $table->integer('cost');
-            $table->string('description');
+            $table->longText('description');
             $table->timestamps();
         });
     }

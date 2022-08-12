@@ -74,7 +74,7 @@
                         <h1 class="text-7xl text-gray-800">{{ $myTasksCount }}</h1>
                     </div>
                     <div class="bg-white text-right text-green-900 w-full px-4 py-2">
-                        <a href="{{ route('staffs')}}" class="hover:underline">View Tasks</a>
+                        <a href="{{ route('reports')}}" class="hover:underline">View Tasks</a>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,13 @@
                     <div class="p-2">
                         <table class="table-auto overflow-scroll w-full">
                             <tbody class="py-2">
+                            @if (count($monthProjects) == 0)
+                            <tr class="border-b border-gray-200">
+                                <td class="p-2 text-center" colspan="3">
+                                    No Scheduled Projects For This Month
+                                </td>
+                            </tr>
+                            @else
                             @foreach ($monthProjects as $project)
                             <tr class="border-b border-gray-200 hover:underline ">
                                 <td class="p-2 text-left">
@@ -117,6 +124,7 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                         <tfoot>
                             <tr>
@@ -135,6 +143,13 @@
                     <div class="p-2">
                         <table class="table-auto overflow-scroll w-full">
                         <tbody class="py-2">
+                            @if (count($latestProjects) == 0)
+                            <tr class="border-b border-gray-200 hover:underline">
+                                <td class="p-2 text-center" colspan="3">
+                                    No Project Progress Yet
+                                </td>
+                            </tr>
+                            @else
                             @foreach ($latestProjects as $project)
                             <tr class="border-b border-gray-200 hover:underline">
                                 <td class="p-2 text-left">
@@ -154,6 +169,7 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @endif 
                         </tbody>
                         <tfoot>
                             <tr>

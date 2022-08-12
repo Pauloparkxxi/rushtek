@@ -16,7 +16,6 @@
                         </a>
                     </span>
                     @endif
-                    
                 </span>
                 <form method="GET" autocomplete="off" action={{ route('projects') }} class="flex flex-wrap justify-end items-center">
                     <div class="flex flex-wrap justify-between items-center lg:space-x-5 mx-4">
@@ -80,7 +79,7 @@
                                     <td class="p-2 hidden sm:table-cell">
                                         <span class="font-medium">
                                             @if ($project->total_tasks)
-                                                {{($project->finished_tasks / $project->total_tasks) * 100}}%
+                                                {{ round(($project->finished_tasks / $project->total_tasks) * 100) }}%
                                             @else
                                                 No Tasks
                                             @endif

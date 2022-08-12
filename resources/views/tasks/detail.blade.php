@@ -30,7 +30,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Description')" />
 
-                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500 @if(Auth::user()->role == 3)bg-gray-200 @endif" placeholder="Your message..." @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>{{$task->description}}</textarea>
+                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500 @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)))bg-gray-200 @endif" placeholder="Your message..." @if ((Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)) || Auth::user()->role == 3) disabled @endif>{{$task->description}}</textarea>
 
                 </div>
 
@@ -57,7 +57,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Status')" />
     
-                    <select name="status" id="status" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline  @if(Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role == 3) disabled @endif>
+                    <select name="status" id="status" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline  @if(Auth::user()->role == 3)bg-gray-200 @endif" @if ((Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)) || Auth::user()->role == 3) disabled @endif>
                         <option value="1" @if($task->status == 1) selected @endif>Todo</option>
                         <option value="2" @if($task->status == 2) selected @endif>Work in Progress</option>
                         <option value="3" @if($task->status == 3) selected @endif>Finish</option>
@@ -67,16 +67,16 @@
                 <div class="mt-4">
                     <x-label :value="__('Progress: '.$task->progress.'%')" id="idLblProgress"/>
     
-                    <input type="range" min="0" max="100" value="{{$task->progress}}" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
+                    <input type="range" min="0" max="100" value="{{$task->progress}}" step="5" name="progress" id="idProgress" class="w-full text-base placeholder-gray-600 border rounded-lg apperance-none focus:shadow-outline" oninput="showProgress(this.value)" @if (Auth::user()->role == 3 || (Auth::user()->role == 2 && !in_array(Auth::user()->id,$members))) disabled @endif>
                 </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Cost')" />
     
-                    <input value="0" type="number" min="0" name="cost" id="idCost" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
+                    <input value="{{$task->cost}}" type="number" min="0" name="cost" id="idCost" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if((Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)) || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role == 3 || (Auth::user()->role == 2 && !in_array(Auth::user()->id,$members))) disabled @endif>
                 </div>
     
-                @if (Auth::user()->role == 1 || Auth::user()->role ==  2)
+                @if (Auth::user()->role == 1 || (Auth::user()->role == 2 && in_array(Auth::user()->id,$members)))
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-3" onclick="return confirm('Are you sure to update task?')">
                         {{ __('Update Task') }}

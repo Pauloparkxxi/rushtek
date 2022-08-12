@@ -70,6 +70,7 @@ class DashboardController extends Controller
             ->join('tasks','tasks.project_id','=','projects.id')
             ->groupBy([
                 'projects.id',
+                'projects.name'
             ]);
 
         if (Auth::user()->role == 2) {

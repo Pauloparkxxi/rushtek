@@ -100,8 +100,10 @@ class TaskController extends Controller
             $task->update([
                 'description'   => $request->description,
                 'progress'      => $request->progress,
-                'status'        => $request->status
+                'status'        => $request->status,
+                'cost'          => $request->cost
             ]);
+
         }
 
         return redirect(route('tasks.detail',$id))->with('alert', 'Task Updated!');
