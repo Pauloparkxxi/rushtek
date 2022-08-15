@@ -66,7 +66,7 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-3" onclick="return confirm('Are you sure to add?')">
-                        {{ __('Add Staff') }}
+                        {{ __('Add Project') }}
                     </x-button>
                 </div>
             </form>

@@ -221,11 +221,18 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete($project_id)
     {
-        Project::find($id)->delete();
-        //TODO Delete Project Members
-        //TODO Delete Project Tasks
+        $project = Project::find($project_id);
+        
+        $tasks = Task::where('project_id','=',$project_id);
+        foreach ( $tasks as $task ) {
+            TaskMember::where('task_id','=',$task->id)->delete();
+        }
+        
+        ProjectMember::where('project_id','=',$project_id)->delete();
+        
+        $project = $project->delete();
         return redirect(route('projects'))->with('alert', 'Project Deleted!');
     }
 }

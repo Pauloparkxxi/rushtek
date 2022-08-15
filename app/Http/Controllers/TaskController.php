@@ -108,4 +108,13 @@ class TaskController extends Controller
 
         return redirect(route('tasks.detail',$id))->with('alert', 'Task Updated!');
     }
+
+    public function delete($id)
+    {
+        $task = Task::find($id);
+        $project_id = $task->project_id;
+        $task->delete();
+        TaskMember::where('task_id','=',$id)->delete();
+        return redirect(route('tasks',$project_id))->with('alert', 'Task Deleted!');
+    }
 }
