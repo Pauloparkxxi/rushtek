@@ -56,8 +56,8 @@
                                     <th class="p-2 hidden md:table-cell">Company</th>
                                     <th class="p-2 hidden md:table-cell">Start Date</th>
                                     <th class="p-2 hidden md:table-cell">End Date</th>
-                                    <th class="p-2 hidden sm:table-cell">Progress</th>
-                                    <th class="p-2"></th>
+                                    <th class="p-2 hidden sm:table-cell w-auto">Progress</th>
+                                    <th class="p-2 md:w-1/4 xs:w-1/4"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,10 +85,13 @@
                                             @endif
                                         </span>
                                     </td>
-                                    <td class="p-2">
-                                        <span class="flex flex-wrap items-center justify-center space-x-2">
+                                    <td class="whitespace-nowrap w-px">
+                                        <span class="flex flex-wrap items-start justify-center space-x-2">
                                             <a href="{{ route('projects.detail', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
                                                 View
+                                            </a>
+                                            <a href="{{ route('tasks', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-green-700 hover:text-white rounded-lg px-3 border border-green-600">
+                                                Tasks
                                             </a>
                                             @if (Auth::user()->role == 1)
                                             <a href="{{ route('projects.delete', $project->id + 0) }}" class="btn bg-white my-1 hover:bg-red-700 hover:text-white hover:border-red-700 rounded-lg px-3 border border-green-600" onclick="return confirm('Are you sure to delete?')">

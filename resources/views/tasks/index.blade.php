@@ -16,7 +16,7 @@
                             Add Task
                         </a>
                         @endif
-                        <a href="{{ route('projects.detail',$project->id) }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
+                        <a href="{{ route('projects') }}" class="btn bg-green-700 text-white font-bold rounded-full px-3 py-1 my-2 
                         focus:outline-none hover:bg-green-800">
                             Return
                         </a>
