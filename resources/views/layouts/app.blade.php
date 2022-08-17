@@ -35,7 +35,11 @@
                 });
 
                 $('#idProjectMembers').select2({
-                    placeholder: 'Select an Option'
+                    placeholder: 'Select Project Members'
+                });
+
+                $('#idTaskMembers').select2({
+                    placeholder: 'Select Task Members'
                 });
             });
         </script>

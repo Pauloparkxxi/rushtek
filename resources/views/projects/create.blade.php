@@ -39,9 +39,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label :value="__('Cost')" />
+                    <x-label :value="__('Budget')" />
 
-                    <input value="0" type="number" name="cost" id="idCost" min="0" class="w-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
+                    <input value="0" type="number" name="budget" id="idBudget" min="0" class="w-full pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
                 </div>
 
                 <div class="mt-4">
@@ -66,7 +66,7 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-3" onclick="return confirm('Are you sure to add?')">
-                        {{ __('Add Staff') }}
+                        {{ __('Add Project') }}
                     </x-button>
                 </div>
             </form>
