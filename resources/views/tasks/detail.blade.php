@@ -30,7 +30,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Description')" />
 
-                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500 @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)))bg-gray-200 @endif" placeholder="Your message..." @if ((Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)) || Auth::user()->role == 3) disabled @endif>{{$task->description}}</textarea>
+                    <textarea id="message" name="text" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500 @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)))bg-gray-200 @endif" placeholder="Your message..." @if ((Auth::user()->role == 2 && !in_array(Auth::user()->id,$members)) || Auth::user()->role == 3) disabled @endif>{{$task->text}}</textarea>
 
                 </div>
 
