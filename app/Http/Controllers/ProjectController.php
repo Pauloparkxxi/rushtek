@@ -6,6 +6,8 @@ use App\Models\Project;
 use App\Models\ProjectMember;
 use App\Models\Client;
 use App\Models\User;
+use App\Models\Task;
+use App\Models\TaskMember;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -225,11 +227,13 @@ class ProjectController extends Controller
     {
         $project = Project::find($project_id);
         
-        $tasks = Task::where('project_id','=',$project_id);
+        $tasks = Task::where('project_id','=',$project_id)->get();
         foreach ( $tasks as $task ) {
             TaskMember::where('task_id','=',$task->id)->delete();
         }
-        
+
+        Task::where('project_id','=',$project_id)->delete();
+            
         ProjectMember::where('project_id','=',$project_id)->delete();
         
         $project = $project->delete();
