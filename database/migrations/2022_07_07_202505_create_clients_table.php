@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('contact');
             $table->string('company');
+            $table->longText('address');
             $table->timestamps();
         });
     }

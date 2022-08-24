@@ -104,6 +104,7 @@ class ClientController extends Controller
         Client::create([
             'user_id' => $client->id,
             'company' => $request->company,
+            'address'   => $request->address,
             'contact' => $request->contact,
         ]);
 
@@ -150,6 +151,7 @@ class ClientController extends Controller
         $client->update([
             'company' => $request->company,
             'contact' => $request->contact,
+            'address'   => $request->address,
         ]);
 
         return redirect(route('clients.detail',$id))->with('alert', 'Client Updated!');
