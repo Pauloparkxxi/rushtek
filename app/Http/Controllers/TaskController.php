@@ -13,7 +13,9 @@ class TaskController extends Controller
 {
     public function index($project_id) {
         $project = Project::find($project_id);
-        $tasks = Task::where('project_id',$project_id)->get();
+        $tasks = Task::where('project_id',$project_id)
+            ->orderBy('id','ASC')
+            ->get();
 
         return view('tasks.index',compact(['project','tasks']));
     }
