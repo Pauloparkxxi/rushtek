@@ -20,6 +20,7 @@ class ReportController extends Controller
         // $projects = Project::select('projects.*')->join('tasks','tasks.project_id','=','projects.id')->get();
         $projects = Project::orderBy('name','asc')->get();
         return view('reports.index',compact('projects'));
+        // return view('reports.index');
     }
 
     public function tasks() {

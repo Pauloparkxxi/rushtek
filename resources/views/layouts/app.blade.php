@@ -40,8 +40,7 @@
                 /* background-color: green */
                 padding-left: .5rem;
                 padding-top: .5rem;
-                height: 16rem
-                
+                height: 65vh;
             }
 
         </style>
