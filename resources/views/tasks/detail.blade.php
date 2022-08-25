@@ -46,12 +46,12 @@
 
                 <div class="mt-4">
                     <x-label :value="__('Start Date')" />
-                    <input value="{{$project->start_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="start_date" id="idStartDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
+                    <input value="{{$task->start_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="start_date" id="idStartDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
 
                 <div class="mt-4">
                     <x-label :value="__('End Date')" />
-                    <input value="{{$project->end_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="end_date" id="idEndDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
+                    <input value="{{$task->end_date}}" min="{{$project->start_date}}" max="{{$project->end_date}}" type="date" name="end_date" id="idEndDate" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline @if(Auth::user()->role ==  2 || Auth::user()->role == 3)bg-gray-200 @endif" @if (Auth::user()->role ==  2 || Auth::user()->role == 3) disabled @endif>
                 </div>
     
                 <div class="mt-4">

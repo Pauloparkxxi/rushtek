@@ -60,7 +60,15 @@
 		{name: "text", label: "Task name", tree: true, width: "225", resize:true},
 	];
     gantt.config.min_task_grid_row_height = 45;
+    
+    gantt.config.scales = [
+        {unit: "month", step: 1, format: "%F, %Y"},
+        {unit: "day", step: 1, format: "%d"}
+    ];
+    
     gantt.init("tasks",new Date("{{date('Y-m-01')}}"),new Date("{{date('Y-m-t')}}"));
+    
+    
     // gantt.load("{{route('reports.tasks')}}");
     gantt.parse({
         "data": [
