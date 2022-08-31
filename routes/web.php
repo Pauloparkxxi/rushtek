@@ -87,6 +87,7 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
 
     //Report
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    Route::get('/reports/tasks',[ReportController::class, 'tasks'])->name('reports.tasks');
 });
 
 require __DIR__.'/auth.php';

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
+use App\Models\Task;
+use App\Models\Project;
+use Dhtmlx\Connector\GanttConnector;
 
 class ReportController extends Controller
 {
@@ -14,72 +17,48 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('reports.index');
+        // $projects = Project::select('projects.*')->join('tasks','tasks.project_id','=','projects.id')->get();
+        $projects = Project::orderBy('name','asc')->get();
+        return view('reports.index',compact('projects'));
+        // return view('reports.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function tasks() {
+        $tasks = Task::all();
+        $projects = Project::select('projects.*')->join('tasks','tasks.project_id','=','projects.id')->get();
+        $data = [];
+        $links = [];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        foreach ($projects as $project) {
+            $record = [
+                'id' => $project->id,
+                'text' => $str = substr($project->name, 0, 45) . '...',
+                'start_date' => $project->start_date,
+                'end_date' => $project->end_date,
+                'open'  => true,
+                'readonly' => true
+            ];
+            array_push($data,$record);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Report $report)
-    {
-        //
-    }
+        foreach ($tasks as $task) {
+            $record = [
+                'id' => $task->id,
+                'text' => $task->name,
+                'start_date' => $task->start_date,
+                'end_date' => $task->end_date,
+                'progress' => $task->progress/100,
+                'readonly' => true,
+                'parent' => $task->project_id
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Report $report)
-    {
-        //
-    }
+            ];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Report $report)
-    {
-        //
-    }
+            array_push($data,$record);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Report $report)
-    {
-        //
+        return response()->json([
+            "links" => [],
+            "data" => $data
+        ]);
     }
 }

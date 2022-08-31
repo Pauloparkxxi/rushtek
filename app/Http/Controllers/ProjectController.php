@@ -204,6 +204,11 @@ class ProjectController extends Controller
                     ]);
                 }
             }
+            Task::where('project_id','=',$project->id)
+            ->update([
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date
+            ]);
         } else if (Auth::user()->role == 2) {
             $project->update([
                 'description'   =>  $request->description

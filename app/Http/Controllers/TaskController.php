@@ -13,7 +13,9 @@ class TaskController extends Controller
 {
     public function index($project_id) {
         $project = Project::find($project_id);
-        $tasks = Task::where('project_id',$project_id)->get();
+        $tasks = Task::where('project_id',$project_id)
+            ->orderBy('id','ASC')
+            ->get();
 
         return view('tasks.index',compact(['project','tasks']));
     }
@@ -27,10 +29,11 @@ class TaskController extends Controller
     }
 
     public function store(Request $request,$project_id) {
+        // dd($request->request);
         $task = Task::create([
             'project_id'    => $project_id,
             'name'          => $request->name,
-            'description'   => $request->description,
+            'text'          => $request->text,
             'start_date'    => $request->start_date,
             'end_date'      => $request->end_date,
             'progress'      => $request->progress,
@@ -78,7 +81,7 @@ class TaskController extends Controller
         if (Auth::user()->role == 1) {
             $task->update([
                 'name'          => $request->name,
-                'description'   => $request->description,
+                'text'   => $request->text,
                 'start_date'    => $request->start_date,
                 'end_date'      => $request->end_date,
                 'progress'      => $request->progress,
@@ -98,7 +101,7 @@ class TaskController extends Controller
             }
         } else if (Auth::user()->role == 2) {
             $task->update([
-                'description'   => $request->description,
+                'text'          => $request->text,
                 'progress'      => $request->progress,
                 'status'        => $request->status,
                 'cost'          => $request->cost

@@ -26,7 +26,7 @@
                 <div class="mt-4">
                     <x-label :value="__('Description')" />
 
-                    <textarea id="message" name="description" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500" placeholder="Your message..." required></textarea>
+                    <textarea id="message" name="text" rows="8" class="block w-full text-gray-900 rounded-lg border border-gray-500" placeholder="Your message..." required></textarea>
 
                 </div>
 
