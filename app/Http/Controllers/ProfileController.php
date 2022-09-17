@@ -72,6 +72,7 @@ class ProfileController extends Controller
             $client = Client::where('user_id',Auth::user()->id)
                 ->update([
                     'contact' => $request->contact,
+                    'address' => $request->address,
                 ]);
         }
 

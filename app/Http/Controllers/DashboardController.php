@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\TaskMember;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -85,16 +86,18 @@ class DashboardController extends Controller
             ->get();
 
         // My Tasks
-        $myTasksCount = TaskMember::where('tasks.status','!=',3)
-            ->join('tasks','tasks.id','=','task_members.task_id');
+        $myTasksCount = "";
         if (Auth::user()->role == 2) {
-            $myTasksCount->where('task_members.user_id',Auth::user()->id);
+            $myTasksCount = TaskMember::where('tasks.status','!=',3)
+                ->join('tasks','tasks.id','=','task_members.task_id')
+                ->where('task_members.user_id',Auth::user()->id)
+                ->count();
         }else if (Auth::user()->role == 3) {
-            $myTasksCount->leftJoin('projects','projects.id','=','tasks.project_id')
-                ->where('projects.client_id','=',Auth::user()->id);
+            $myTasksCount = Task::where('tasks.status','!=',3)
+                ->leftJoin('projects','projects.id','=','tasks.project_id')
+                ->where('projects.client_id','=',Auth::user()->id)
+                ->count();
         }
-            
-        $myTasksCount = $myTasksCount->count();
 
         return view('dashboard',compact(['staffsCount','clientsCount','projectsCount','monthProjects','latestProjects','myTasksCount']));
     }

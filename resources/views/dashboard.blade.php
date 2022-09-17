@@ -129,7 +129,7 @@
                         <tfoot>
                             <tr>
                                 <td class="p-2 text-right text-green-900" colspan="3">
-                                    <a href="{{ route('projects')}}" class="hover:underline">View More</a>
+                                    <a href="{{ route('reports',['date' => date('Y-m-01')])}}" class="hover:underline">View More</a>
                                 </td>
                             </tr>
                         </tfoot>
@@ -174,7 +174,7 @@
                         <tfoot>
                             <tr>
                                 <td class="p-2 text-right text-green-900" colspan="3">
-                                    <a href="{{ route('reports')}}" class="hover:underline">View More</a>
+                                    <a href="{{ route('projects')}}" class="hover:underline">View More</a>
                                 </td>
                             </tr>
                         </tfoot>
