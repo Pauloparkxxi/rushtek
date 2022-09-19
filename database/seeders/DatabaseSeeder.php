@@ -57,8 +57,12 @@ class DatabaseSeeder extends Seeder
         DB::table('clients')->insert([
             'user_id' => $client_id,
             'contact' => '09123456789',
+<<<<<<< Updated upstream
             'company' => 'AMA Cavite',
             'address' =>  'Address 1'
+=======
+            'company' => 'AMA College Cavite',
+>>>>>>> Stashed changes
         ]);
         
 
