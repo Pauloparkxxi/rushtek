@@ -54,6 +54,12 @@
     
                     <input value="{{ $user->company }}" type="text" name="department" id="idDepartment" class="w-full h-10 pl-3 pr-6 text-base bg-gray-200 placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" disabled>
                 </div> 
+
+                <div class="mt-4">
+                    <x-label :value="__('Address')" />
+    
+                    <input value="{{ $user->address }}" type="text" name="address" id="idDepartment" class="w-full h-10 pl-3 pr-6 text-base rounded-lg appearance-none focus:shadow-outline">
+                </div> 
                 @endif
     
                 <div class="mt-4">

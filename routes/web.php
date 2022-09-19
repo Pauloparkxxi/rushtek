@@ -21,6 +21,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TaskController;
 
 Route::group(['middleware' => ['auth','prevent-back-history']], function(){
     // Dashboard
@@ -53,6 +54,9 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
         Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('departments.update');
     });
 
+    Route::get('/projects/tasks/{id}',[TaskController::class, 'index'])->name('tasks');
+    Route::get('/tasks/{id}',[TaskController::class,'detail'])->name('tasks.detail');
+
     Route::group(['middleware' => 'role:1,2'], function() {
         // Clients
         Route::get('/clients',[ClientController::class, 'index'])->name('clients');
@@ -61,6 +65,12 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
         Route::get('/clients/delete/{id}',[ClientController::class, 'delete'])->name('clients.delete');
         Route::get('/clients/{id}',[ClientController::class, 'detail'])->name('clients.detail');
         Route::put('/clients/{id}',[ClientController::class, 'update'])->name('clients.update');
+       
+        
+        Route::get('/projects/tasks/{id}/create',[TaskController::class,'create'])->name('tasks.create');
+        Route::post('/projects/tasks/{id}/create',[TaskController::class,'store'])->name('tasks.store');
+        Route::get('/tasks/delete/{id}',[TaskController::class,'delete'])->name('tasks.delete');
+        Route::put('/tasks/{id}',[TaskController::class,'update'])->name('tasks.update');
     });
 
     //Profile
@@ -69,9 +79,15 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function(){
 
     //Project
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+    Route::get('/projects/create',[ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects/create',[ProjectController::class, 'store'])->name('projects.store');
+    Route::get('/projects/delete/{id}',[ProjectController::class, 'delete'])->name('projects.delete');
+    Route::get('/projects/{id}',[ProjectController::class, 'detail'])->name('projects.detail');
+    Route::put('/projects/{id}',[ProjectController::class, 'update'])->name('projects.update');
 
     //Report
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    Route::get('/reports/tasks',[ReportController::class, 'tasks'])->name('reports.tasks');
 });
 
 require __DIR__.'/auth.php';

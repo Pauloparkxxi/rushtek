@@ -17,7 +17,12 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->bs,
+            'description' => fake()->sentence($nbWords = 10, $variableNbWords = true),
+            'start_date' => '2022-01-01',   
+            'end_date' => fake()->dateTimeThisYear($max="2022-12-31"),
+            'budget' => fake()->numberBetween($min = 1000, $max = 100000),
+            'status' => fake()->numberBetween($min = 0, $max = 1),
         ];
     }
 }
