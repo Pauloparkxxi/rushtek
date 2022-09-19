@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
             'company' => 'AMA Cavite',
             'address' =>  'Address 1'
 =======
-            'company' => 'AMA College Cavite',
+            'company' => 'AMA Cavite',
 >>>>>>> Stashed changes
         ]);
         
