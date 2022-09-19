@@ -58,10 +58,12 @@ class DatabaseSeeder extends Seeder
             'user_id' => $client_id,
             'contact' => '09123456789',
             'company' => 'AMA Cavite',
+            'address' =>  'Address 1'
         ]);
         
 
         \App\Models\Department::factory(100)->create();
         \App\Models\User::factory(100)->create();
+        \App\Models\Project::factory(100)->create();
     }
 }
