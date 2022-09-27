@@ -83,7 +83,15 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->request);
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'company'   => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'address'   => 'required|max:255',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+        ]);
 
         $client = User::create([
             'fname'     => Str::ucfirst(Str::lower($request->fname)),
@@ -120,6 +128,17 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'company'   => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'address'   => 'required|max:255',
+            'status'    => 'required',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+        ]);
+
 
         $user = User::find($id);
         $user->update([

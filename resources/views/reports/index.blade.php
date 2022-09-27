@@ -135,7 +135,7 @@
 
 <script>
     function changeDate(date) {
-        var url = "{{route('reports','date=:id')}}".replace(':id',date+'-01');
+        var url = "{{route('reports','projectDate=:id')}}".replace(':id',date+'-01');
         window.location.href = url;
     }
 </script>
