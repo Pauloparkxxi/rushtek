@@ -21,9 +21,11 @@ class ReportController extends Controller
         $month_start = date('Y-m-01');
         $month_end = date('Y-m-t');
         $date = ($request->query('projectDate')) ? $request->query('projectDate').'-01' : $month_start;
+        $date_end = ($request->query('projectDate')) ? date('Y-m-t',strtotime($date)) : $month_end;
 
         # Projects
-        $sqlProjects = Project::orderBy('name','asc');
+        $sqlProjects = Project::selectRaw('projects.id, projects.name')
+            ->orderBy('name','asc');
 
         # Project Assign
         if (Auth::user()->role == 2) {
@@ -35,27 +37,32 @@ class ReportController extends Controller
         
         # Project Date
         $sqlProjects->Where('projects.end_date','>=',date('Y-m-d',strtotime($date)));
+        $sqlProjects->Where('projects.start_date','<=',date('Y-m-d',strtotime($date_end)));
         
         # Project Status
         if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
             $sqlProjects->where('projects.status','=',$request->query('projectStatus') + 0);
         }
+        // dd($sqlProjects);
         $projects = $sqlProjects->get();
 
         # Task Projects
         $tasks;
         if ($request->query('taskStatus')) {
-            $tasks = Task::whereIn('tasks.status',$request->query('taskStatus'))->get();
+            $tasks = Task::whereIn('tasks.status',$request->query('taskStatus'))
+            ->orderBy('tasks.id','ASC')
+            ->get();
         } else {
-            $tasks = Task::all();
+            $tasks = Task::orderBy('tasks.id','ASC')->get();
         }
 
         $sqlProjectTasks = Project::selectRaw('
-            projects.id,
+            projects.id as project_id,
             projects.name,
             projects.start_date,
             projects.end_date,
             projects.status,
+            projects.budget,
             count(tasks.id) as total_tasks,
             sum(
                 case
@@ -63,6 +70,7 @@ class ReportController extends Controller
                     else 0
                 end
             ) as finished_tasks,
+            sum(tasks.cost) as tasks_costs,
             clients.company
         ')
         ->leftJoin('clients','clients.user_id','=','projects.client_id')
@@ -102,7 +110,7 @@ class ReportController extends Controller
 
         foreach ($projectTasks as $projectTask) {
             $record = [
-                'id' => "p".$projectTask->id,
+                'id' => "p".$projectTask->project_id,
                 // 'text' => $str = substr($projectTask->name, 0, 45) . '...',
                 'text' => $projectTask->name,
                 // 'start_date' => strtotime($projectTask->start_date) < strtotime($month_start) ? $month_start : $projectTask->start_date,
@@ -110,6 +118,8 @@ class ReportController extends Controller
                 'open'  => true,
                 'readonly' => true,
                 'progress' => $projectTask->total_tasks ?($projectTask->finished_tasks / $projectTask->total_tasks) : 0,
+                'budget' => $projectTask->budget ? $projectTask->budget : 0,
+                'cost'   => $projectTask->tasks_costs ? $projectTask->tasks_costs : 0, 
                 'parent' => 0,
                 'status' => $projectTask->status
             ];
@@ -132,6 +142,8 @@ class ReportController extends Controller
                 'progress' => $task->progress/100,
                 'readonly' => true,
                 'progress' => $task->progress ? $task->progress / 100 : 0,
+                'budget' => 0,
+                'cost' => $task->cost ? $task->cost : 0,
                 'parent' => "p".$task->project_id,
                 'status' => $task->status
             ];
@@ -139,7 +151,7 @@ class ReportController extends Controller
             array_push($data,$record);
         }
 
-        // dd($projectTasks,$tasks,$data, $links);
+        // dd($projects,$projectTasks,$tasks,$data, $links);
 
         $query = $request->query ? array_merge(array(), $request->query->all()) : [];
         return view('reports.index',compact('projects','data','links','query','date'));

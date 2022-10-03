@@ -75,11 +75,11 @@
         if (task.parent.charAt(0) === 'p') {
             task_status = ["","Todo","Work In Progress","Finished"]
             status = task_status[task.status] ? task_status[task.status] : "None";
-            return "<b>Task:</b> "+ task.text + "<br/><b>Status:</b>" + status + "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
+            return "<b>Task:</b> "+ task.text + "<br/><b>Status:</b>" + status + "<br/><b>Cost:</b>" + parseFloat(task.cost).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) + "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
         }else {
             task_status = ["Inactive","Active"]
             status = task_status[task.status] ? task_status[task.status] : "None";
-            return "<b>Project:</b> "+ task.text + "<br/><b>Status:</b>" + status + "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
+            return "<b>Project:</b> "+ task.text + "<br/><b>Status:</b>" + status + "<br/><b>Budget:</b>" + parseFloat(task.budget).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) + "<br/><b>Cost:</b>" + parseFloat(task.cost).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) +  "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
         }
     }
 
@@ -113,7 +113,7 @@
         return "<span style='text-align:left'>" + Math.round(task.progress * 100) + "% </span>";
     };
 
-    gantt.init("tasks",new Date("{{date('Y-m-01')}}"),new Date("{{date('Y-m-t')}}"));
+    gantt.init("tasks",new Date("{{date('Y-m-1',strtotime($date))}}"),new Date("{{date('Y-m-t',strtotime($date))}}"));
     gantt.parse({
         data:[
         @foreach ($data as $data)
@@ -123,6 +123,8 @@
             "start_date": "{{$data['start_date']}}", 
             "end_date": "{{$data['end_date']}}",
             "parent":"{{$data['parent']}}", 
+            "budget":"{{$data['budget']}}",
+            "cost":"{{$data['cost']}}",
             "progress":"{{$data['progress']}}",
             "open": true, 
             "readonly": true,
