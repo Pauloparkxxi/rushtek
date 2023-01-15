@@ -71,6 +71,10 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
         $admin = Department::create([
             'dep_name'      => $request->name,
             'dep_description'   => $request->description,
@@ -89,6 +93,11 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'      => 'required|max:255',
+            'status'    => 'required',
+        ]);
+
         $department = Department::find($id);
         $department->update([
             'dep_name' => $request->name,

@@ -66,13 +66,13 @@
                 <div class="mt-4">
                     <x-label :value="__('Password')" />
     
-                    <input value="" type="password" name="password" id="idPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Password will not be changed if empty">
+                    <input value="" type="password" name="password" id="idPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Password will not be changed if empty" required>
                 </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Contact')" />
     
-                    <input value="{{ $user->contact }}" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="{{ $user->contact }}" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
                 </div>
 
                 <div class="mt-4">

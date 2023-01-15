@@ -40,7 +40,28 @@
                 /* background-color: green */
                 padding-left: .5rem;
                 padding-top: .5rem;
-                height: 65vh;
+                height: 57vh;
+            }
+
+            .gantt_task_line.project {
+                background-color: #14532d;
+            }
+
+            .project .gantt_task_progress {
+                background-color: #16a34a;
+            }
+
+            .gantt_task_line.task {
+                background-color: #0369a1;
+            }
+
+            .task .gantt_task_progress {
+                background-color: #0ea5e9;
+            }
+
+
+            .wip .gatt_task_progress {
+                background-color: #0f766e;
             }
 
         </style>
@@ -69,9 +90,25 @@
                 });
 
                 $('#idTaskStatus').select2({
-                    placeholder: 'Select Task Status'
+                    placeholder: 'Select Task Status',
+                    selectionCssClass: "taskStatus",
+                    allowClear:true
                 });
             });
+
+            function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2) 
+                    month = '0' + month;
+                if (day.length < 2) 
+                    day = '0' + day;
+
+                return [year, month, day].join('-');
+            }
         </script>
         
     </head>

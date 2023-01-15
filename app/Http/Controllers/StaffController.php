@@ -91,6 +91,16 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+            'department' => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'birthdate' => 'required|date',
+        ]);
+
         $staff = User::create([
             'fname'     => Str::ucfirst(Str::lower($request->fname)),
             'lname'     => Str::ucfirst(Str::lower($request->lname)),
@@ -127,6 +137,18 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'department' => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'birthdate' => 'required|date',
+            'status'    => 'required',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+        ]);
+
 
         $user = User::find($id);
         $user->update([
