@@ -70,8 +70,6 @@ class AdminController extends Controller
             ->where('users.id','=',$user_id)
             ->first();
 
-
-        // dd($user,$user_id);
         return view('admins.detail',compact('user'));
     }
 
@@ -88,12 +86,14 @@ class AdminController extends Controller
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
             'email'     => 'required|email|unique:users,email',
+            'username'  => 'required|max:20|min:6',
             'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
         ]);
 
         $admin = User::create([
             'fname'     => Str::ucfirst(Str::lower($request->fname)),
             'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'username'  => $request->username,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'status'    => 1,
@@ -120,6 +120,7 @@ class AdminController extends Controller
         $request->validate([
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
+            'username'  => 'required|max:20|min:6',
             'email'     => 'required|email|unique:users,email,'.$id,
             'status'    => 'required',
             'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
@@ -130,6 +131,7 @@ class AdminController extends Controller
             'lname' => $request->lname,
             'fname' => $request->fname,
             'email' => $request->email,
+            'username' => $request->username,
             'status' => $request->status,
         ]);
 

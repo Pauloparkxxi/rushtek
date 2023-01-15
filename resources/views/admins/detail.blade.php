@@ -47,6 +47,12 @@
     
                     <input value="{{ $user->email }}" type="email" name="email" id="idEmail" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
                 </div>
+
+                <div class="mt-4">
+                    <x-label :value="__('Username')" />
+    
+                    <input value="{{ $user->username }}" type="text" name="username" id="idUsername" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Password')" />
