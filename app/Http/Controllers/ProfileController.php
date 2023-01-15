@@ -47,6 +47,7 @@ class ProfileController extends Controller
             'lname' => $request->lname,
             'fname' => $request->fname,
             'email' => $request->email,
+            'username' => $request->username
         ]);
 
         if ($request->file('avatar')) {
