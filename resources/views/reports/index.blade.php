@@ -14,9 +14,9 @@
                 <h3 class="text-1xl p-2 text-green-100 bg-green-700">Project Status</h3>
                 <div>
                     <select name="projectStatus" id="idProjectStatus" class="rushtek-multiple w-full h-full pl-3 pr-6 text-sm placeholder-gray-600 border apperance-none focus:shadow-outline">
-                        <option value="3" @if (array_key_exists("projectStatus", $query) && $query['projectStatus'] == 3) selected @endif>All</option>
                         <option value="1" @if (array_key_exists("projectStatus", $query) && $query['projectStatus'] == 1) selected @endif>Active</option>
                         <option value="0" @if (array_key_exists("projectStatus", $query) && $query['projectStatus'] == 0) selected @endif>Inactive</option>
+                        <option value="3" @if (array_key_exists("projectStatus", $query) && $query['projectStatus'] == 3) selected @endif>All</option>
                     </select>
                 </div>
                 <h3 class="text-1xl p-2 text-green-100 bg-green-700">Task Status</h3>

@@ -40,9 +40,17 @@ class ReportController extends Controller
         $sqlProjects->Where('projects.start_date','<=',date('Y-m-d',strtotime($date_end)));
         
         # Project Status
-        if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
-            $sqlProjects->where('projects.status','=',$request->query('projectStatus') + 0);
+        if ($request->query('projectStatus')) {
+            // FILTER ONLY IF ACTIVE (1) OR INACTIVE (0)
+            if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
+                $sqlProjects->where('projects.status','=',$request->query('projectStatus') + 0);
+            }
+        } else {
+            // SELECT ALL ACTIVE IF NO PROJECT STATUS FILTER
+            $sqlProjects->where('projects.status','=',1);
         }
+
+
         // dd($sqlProjects);
         $projects = $sqlProjects->get();
 
@@ -87,8 +95,14 @@ class ReportController extends Controller
         ->orderBy('projects.name','ASC');
 
         // Project Status Filter
-        if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
-            $sqlProjectTasks->where('projects.status','=',$request->query('projectStatus'));
+        if ($request->query('projectStatus')) {
+            // FILTER ONLY IF ACTIVE (1) OR INACTIVE (0)
+            if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
+                $sqlProjectTasks->where('projects.status','=',$request->query('projectStatus'));
+            }
+        } else {
+            // SELECT ALL ACTIVE IF NO PROJECT STATUS FILTER
+            $sqlProjectTasks->where('projects.status','=',1);
         }
 
         // Date Filter
@@ -101,10 +115,9 @@ class ReportController extends Controller
         // Project Filter
         if ($request->query('projectFilter')) {
             $sqlProjectTasks->whereIn('projects.id',$request->query('projectFilter'));
-        } else {
-            $sqlProjectTasks->where('projects.id',0);
         }
 
+        // dd($sqlProjectTasks, $request);
         $projectTasks = $sqlProjectTasks->get();
 
         $data = [];
