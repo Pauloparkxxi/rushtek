@@ -86,7 +86,7 @@ class AdminController extends Controller
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
             'email'     => 'required|email|unique:users,email',
-            'username'  => 'required|max:20|min:6',
+            'username'  => 'required|max:20|min:6|unique:users,username',
             'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
         ]);
 
@@ -120,7 +120,7 @@ class AdminController extends Controller
         $request->validate([
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
-            'username'  => 'required|max:20|min:6',
+            'username'  => 'required|max:20|min:6|unique:users,username,'.$id,
             'email'     => 'required|email|unique:users,email,'.$id,
             'status'    => 'required',
             'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
