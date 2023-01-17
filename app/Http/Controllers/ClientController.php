@@ -87,6 +87,7 @@ class ClientController extends Controller
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
             'email'     => 'required|email|unique:users,email',
+            'username'  => 'required|max:20|min:6',
             'company'   => 'required|max:255',
             'contact'   => 'required|max:255',
             'address'   => 'required|max:255',
@@ -96,6 +97,7 @@ class ClientController extends Controller
         $client = User::create([
             'fname'     => Str::ucfirst(Str::lower($request->fname)),
             'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'username'  => $request->username,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'status'    => 1,
@@ -132,6 +134,7 @@ class ClientController extends Controller
             'fname'     => 'required|max:255',
             'lname'     => 'required|max:255',
             'email'     => 'required|email|unique:users,email,'.$id,
+            'username'  => 'required|max:20|min:6',
             'company'   => 'required|max:255',
             'contact'   => 'required|max:255',
             'address'   => 'required|max:255',
@@ -145,6 +148,7 @@ class ClientController extends Controller
             'lname' => $request->lname,
             'fname' => $request->fname,
             'email' => $request->email,
+            'username'  => $request->username,
             'status' => $request->status,
         ]);
 
