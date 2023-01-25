@@ -15,12 +15,13 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <!-- Email Address -->
+            <!-- Username -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="username" :value="__('Username')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" autofocus />
             </div>
+
 
             <!-- Password -->
             <div class="mt-4">
@@ -72,17 +73,17 @@
 
 <script>
     function admin() {
-        $('#email').val('admin@example.com') 
+        $('#username').val('admin123')
         $('#password').val('password')
     }
 
     function staff() {
-        $('#email').val('staff@example.com') 
+        $('#username').val('staff123')
         $('#password').val('password')
     }
 
     function client() {
-        $('#email').val('client@example.com') 
+        $('#username').val('client123')
         $('#password').val('password')
     }
 </script>

@@ -51,20 +51,26 @@
 
                 <div class="mt-4">
                     <x-label :value="__('Email')" />
-    
+
                     <input value="" type="email" name="email" id="idEmail" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
                 </div>
     
                 <div class="mt-4">
+                    <x-label :value="__('Username')" />
+    
+                    <input value="" type="text" name="username" id="idUsername" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                </div>
+
+                <div class="mt-4">
                     <x-label :value="__('Password')" />
     
-                    <input value="" type="password" name="password" id="idPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"default_profile>
+                    <input value="" type="password" name="password" id="idPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
                 </div>
     
                 <div class="mt-4">
                     <x-label :value="__('Contact')" />
     
-                    <input value="" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    <input value="" type="text" name="contact" id="idContact" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
                 </div>
     
                 <div class="flex items-center justify-end mt-4">

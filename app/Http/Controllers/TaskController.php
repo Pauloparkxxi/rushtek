@@ -29,7 +29,15 @@ class TaskController extends Controller
     }
 
     public function store(Request $request,$project_id) {
-        // dd($request->request);
+        $request->validate([
+            'name'      => 'required|max:255',
+            'start_date'=> 'required|date',
+            'end_date'  => 'required|date|after_or_equal:start_date',
+            'progress'  => 'required',
+            'cost'      => 'required',
+            'status'    => 'required',
+        ]);
+
         $task = Task::create([
             'project_id'    => $project_id,
             'name'          => $request->name,
@@ -79,6 +87,14 @@ class TaskController extends Controller
         $task = Task::find($id);
 
         if (Auth::user()->role == 1) {
+            $request->validate([
+                'name'      => 'required|max:255',
+                'start_date'=> 'required|date',
+                'end_date'  => 'required|date|after_or_equal:start_date',
+                'progress'  => 'required',
+                'cost'      => 'required',
+                'status'    => 'required',
+            ]);
             $task->update([
                 'name'          => $request->name,
                 'text'   => $request->text,
@@ -100,6 +116,11 @@ class TaskController extends Controller
                 }
             }
         } else if (Auth::user()->role == 2) {
+            $request->validate([
+                'progress'  => 'required',
+                'cost'      => 'required',
+                'status'    => 'required',
+            ]);
             $task->update([
                 'text'          => $request->text,
                 'progress'      => $request->progress,

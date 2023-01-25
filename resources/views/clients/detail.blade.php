@@ -55,6 +55,12 @@
                 </div>
 
                 <div class="mt-4">
+                    <x-label :value="__('Username')" />
+    
+                    <input value="{{ $user->username }}" type="text" name="username" id="idUsername" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                </div>
+
+                <div class="mt-4">
                     <x-label :value="__('Address')" />
     
                     <input value="{{ $user->address }}" type="text" name="address" id="idAddress" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
