@@ -42,11 +42,20 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        $id = Auth::user()->id;
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'username'  => 'required|max:20|min:6|unique:users,username,'.$id,
+        ]);
+        
         $user = User::find(Auth::user()->id);
         $user->update([
             'lname' => $request->lname,
             'fname' => $request->fname,
             'email' => $request->email,
+            'username' => $request->username
         ]);
 
         if ($request->file('avatar')) {
