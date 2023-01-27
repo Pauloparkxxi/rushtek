@@ -87,7 +87,7 @@
                         <h1 class="text-7xl text-gray-800">{{ $myTasksCount }}</h1>
                     </div>
                     <div class="bg-white text-right text-green-900 w-full px-4 py-2">
-                        <a href="{{ route('staffs')}}" class="hover:underline">View Tasks</a>
+                        <a href="{{ route('reports')}}" class="hover:underline">View Tasks</a>
                     </div>
                 </div>
             </div>

@@ -94,6 +94,14 @@ class ReportController extends Controller
         ])
         ->orderBy('projects.name','ASC');
 
+        # Project Assign
+        if (Auth::user()->role == 2) {
+            $sqlProjectTasks->join('project_members','project_members.project_id','=','projects.id')
+                ->where('project_members.user_id','=',Auth::user()->id);
+        } else if (Auth::user()->role == 3){
+            $sqlProjectTasks->where('projects.client_id',Auth::user()->id);
+        }
+
         // Project Status Filter
         if ($request->query('projectStatus')) {
             // FILTER ONLY IF ACTIVE (1) OR INACTIVE (0)
@@ -107,17 +115,13 @@ class ReportController extends Controller
 
         // Date Filter
         if ($request->query('projectDate')) {
-            $start_date = date('Y-01-01');
-            $end_date = date('Y-m-t',strtotime($request->query('projectDate').'-01'));
-            $sqlProjectTasks->where('projects.start_date','<=',date('Y-m-d',strtotime($month_end)));  
+            $sqlProjectTasks->where('projects.end_date','>=',date('Y-m-d',strtotime($request->query('projectDate'))));
         }
 
         // Project Filter
         if ($request->query('projectFilter')) {
             $sqlProjectTasks->whereIn('projects.id',$request->query('projectFilter'));
         }
-
-        // dd($sqlProjectTasks, $request);
         $projectTasks = $sqlProjectTasks->get();
 
         $data = [];
