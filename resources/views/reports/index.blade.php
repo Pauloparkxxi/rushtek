@@ -49,6 +49,26 @@
     </div>
     </div>
 </x-app-layout>
+<script>
+    function changeDate(date) {
+        var url = "{{route('reports','projectDate=:id')}}".replace(':id',date+'-01');
+        window.location.href = url;
+    }
+
+    function add1Day(dateStr) {
+        var date = new Date(dateStr);
+        date.setDate(date.getDate() + 1);
+        console.log(date)
+        return date;
+    }
+
+    function sub1Day(dateStr) {
+        var date = new Date(dateStr);
+        date.setDate(date.getDate() - 1);
+        console.log(date)
+        return date;
+    }
+</script>
 <script type="text/javascript">
     gantt.config.time_picker = "%H:%s";
     gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
@@ -71,7 +91,7 @@
     // Tooltip
     gantt.templates.tooltip_text = function(start,end,task){
         start_date = formatDate(start);
-        end_date = formatDate(end);
+        end_date = formatDate(sub1Day(end));
         if (task.parent.charAt(0) === 'p') {
             task_status = ["","Todo","Work In Progress","Finished"]
             status = task_status[task.status] ? task_status[task.status] : "None";
@@ -121,7 +141,7 @@
             "id": "{{$data['id']}}", 
             "text": "{{$data['text']}}", 
             "start_date": "{{$data['start_date']}}", 
-            "end_date": "{{$data['end_date']}}",
+            "end_date": formatDate(add1Day("{{$data['end_date']}}")),
             "parent":"{{$data['parent']}}", 
             "budget":"{{$data['budget']}}",
             "cost":"{{$data['cost']}}",
@@ -133,13 +153,6 @@
         @endforeach
     ],
     })
-</script>
-
-<script>
-    function changeDate(date) {
-        var url = "{{route('reports','projectDate=:id')}}".replace(':id',date+'-01');
-        window.location.href = url;
-    }
 </script>
 
 <style>
