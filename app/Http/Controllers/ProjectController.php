@@ -119,6 +119,13 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'          => 'required|max:255',
+            'start_date'    => 'required|date',
+            'end_date'      => 'required|date|after_or_equal:start_date',
+            'budget'        => 'required',
+        ]);
+
         $project = Project::create([
             'name'          => $request->name,
             'description'   => $request->description,
@@ -182,10 +189,18 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         $project = Project::find($id);
 
         if (Auth::user()->role == 1) {
+            $request->validate([
+                'name'          => 'required|max:255',
+                'start_date'    => 'required|date',
+                'end_date'      => 'required|date|after_or_equal:start_date',
+                'budget'        => 'required',
+                'status'        => 'required',
+            ]);
+
             $project->update([
                 'name'          => $request->name,
                 'description'   => $request->description,

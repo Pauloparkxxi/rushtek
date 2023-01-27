@@ -83,11 +83,21 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->request);
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'username'  => 'required|max:20|min:6|unique:users,username',
+            'company'   => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'address'   => 'required|max:255',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+        ]);
 
         $client = User::create([
             'fname'     => Str::ucfirst(Str::lower($request->fname)),
             'lname'     => Str::ucfirst(Str::lower($request->lname)),
+            'username'  => $request->username,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'status'    => 1,
@@ -120,12 +130,25 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'fname'     => 'required|max:255',
+            'lname'     => 'required|max:255',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'username'  => 'required|max:20|min:6|unique:users,username,'.$id,
+            'company'   => 'required|max:255',
+            'contact'   => 'required|max:255',
+            'address'   => 'required|max:255',
+            'status'    => 'required',
+            'avatar'    => 'max:10000|mimes:jpeg,jpg,png',
+        ]);
+
 
         $user = User::find($id);
         $user->update([
             'lname' => $request->lname,
             'fname' => $request->fname,
             'email' => $request->email,
+            'username'  => $request->username,
             'status' => $request->status,
         ]);
 
