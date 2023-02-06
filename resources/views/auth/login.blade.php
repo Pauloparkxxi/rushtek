@@ -42,7 +42,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                {{-- @if (Route::has('password.request'))
+                <!-- {{-- @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
@@ -61,7 +61,7 @@
                 <a href="#" class="btn bg-blue-700 text-white font-bold rounded-full px-3 py-1 my-2 
                 focus:outline-none hover:bg-blue-800" onclick="client()">
                     Client
-                </a>
+                </a> -->
 
                 <x-button class="ml-3" onclick="()=> { alert('hit')  }">
                     {{ __('Log in') }}
