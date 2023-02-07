@@ -99,7 +99,7 @@
         }else {
             task_status = ["Inactive","Active"]
             status = task_status[task.status] ? task_status[task.status] : "None";
-            return "<b>Project:</b> "+ task.text + "<br/><b>Status:</b>" + status + "<br/><b>Budget:</b>" + parseFloat(task.budget).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) + "<br/><b>Cost:</b>" + parseFloat(task.cost).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) +  "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
+            return "<b>Project:</b> "+ task.text + "<br/><b>Company Name:</b>" + task.company_name + "<br/><b>Status:</b>" + status + "<br/><b>Budget:</b>" + parseFloat(task.budget).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) + "<br/><b>Cost:</b>" + parseFloat(task.cost).toLocaleString('en-US', { style: 'currency', currency: 'PHP' }) +  "<br/><b>Progress:</b> " + Math.round(task.progress * 100)+"%" + "<br/><b>Start Date:</b> " + start_date + "<br/><b>End Date:</b> " + end_date;
         }
     }
 
@@ -148,7 +148,8 @@
             "progress":"{{$data['progress']}}",
             "open": true, 
             "readonly": true,
-            "status": "{{$data['status']}}"
+            "status": "{{$data['status']}}",
+            "company_name": "{{$data['company_name']}}"
         },
         @endforeach
     ],
