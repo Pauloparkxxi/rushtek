@@ -79,9 +79,11 @@ class ReportController extends Controller
                 end
             ) as finished_tasks,
             sum(tasks.cost) as tasks_costs,
-            clients.company
+            clients.company,
+            users.status as client_status
         ')
         ->leftJoin('clients','clients.user_id','=','projects.client_id')
+        ->leftJoin('users','users.id','=','clients.user_id')
         ->leftJoin('tasks','tasks.project_id','=','projects.id')
         ->groupBy([
             'projects.id',
@@ -128,12 +130,19 @@ class ReportController extends Controller
         $links = [];
 
         foreach ($projectTasks as $projectTask) {
+            $company_name = '';
+            
+            if ($projectTask->client_status !== null) {
+                $company_name = $projectTask->client_status === 1 ? $projectTask->company : 'Inactive';
+            }
+
             $record = [
                 'id' => "p".$projectTask->project_id,
                 // 'text' => $str = substr($projectTask->name, 0, 45) . '...',
                 'text' => $projectTask->name,
                 // 'start_date' => strtotime($projectTask->start_date) < strtotime($month_start) ? $month_start : $projectTask->start_date,
                 'end_date' => $projectTask->end_date,
+                'company_name' => $company_name,
                 'open'  => true,
                 'readonly' => true,
                 'progress' => $projectTask->total_tasks ?($projectTask->finished_tasks / $projectTask->total_tasks) : 0,
@@ -164,13 +173,12 @@ class ReportController extends Controller
                 'budget' => 0,
                 'cost' => $task->cost ? $task->cost : 0,
                 'parent' => "p".$task->project_id,
-                'status' => $task->status
+                'status' => $task->status,
+                'company_name' => ''
             ];
 
             array_push($data,$record);
         }
-
-        // dd($projects,$projectTasks,$tasks,$data, $links);
 
         $query = $request->query ? array_merge(array(), $request->query->all()) : [];
         return view('reports.index',compact('projects','data','links','query','date'));
