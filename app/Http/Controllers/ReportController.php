@@ -92,7 +92,8 @@ class ReportController extends Controller
             'projects.end_date',
             'projects.status',
             'projects.budget',
-            'clients.company'
+            'clients.company',
+            'users.status'
         ])
         ->orderBy('projects.name','ASC');
 
