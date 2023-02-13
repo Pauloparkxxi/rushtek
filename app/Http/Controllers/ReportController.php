@@ -40,7 +40,7 @@ class ReportController extends Controller
         $sqlProjects->Where('projects.start_date','<=',date('Y-m-d',strtotime($date_end)));
         
         # Project Status
-        if ($request->query('projectStatus')) {
+        if ($request->query('projectStatus') !== null) {
             // FILTER ONLY IF ACTIVE (1) OR INACTIVE (0)
             if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
                 $sqlProjects->where('projects.status','=',$request->query('projectStatus') + 0);
@@ -106,7 +106,7 @@ class ReportController extends Controller
         }
 
         // Project Status Filter
-        if ($request->query('projectStatus')) {
+        if ($request->query('projectStatus') !== null) {
             // FILTER ONLY IF ACTIVE (1) OR INACTIVE (0)
             if ($request->query('projectStatus') === '0' || $request->query('projectStatus') == 1) {
                 $sqlProjectTasks->where('projects.status','=',$request->query('projectStatus'));
