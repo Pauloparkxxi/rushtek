@@ -39,7 +39,7 @@
                 </div>
                 <h2 class="text-1xl p-2 text-green-100 bg-green-700 h-fit">
                     <input type="submit" class="button border border-white rounded py-0 px-2 hover:bg-blue-500 hover:text-white" value="Filter">
-                    <a class="button border border-white rounded py-0 px-2 hover:bg-red-500 hover:text-white">Clear</a>
+                    <a class="button border border-white rounded py-0 px-2 hover:bg-red-500 hover:text-white" onclick="clearProject()">Clear</a>
                 </h2>
             </div>
         </form>
@@ -58,15 +58,17 @@
     function add1Day(dateStr) {
         var date = new Date(dateStr);
         date.setDate(date.getDate() + 1);
-        console.log(date)
         return date;
     }
 
     function sub1Day(dateStr) {
         var date = new Date(dateStr);
         date.setDate(date.getDate() - 1);
-        console.log(date)
         return date;
+    }
+
+    function clearProject() {
+        $('input:checkbox').prop('checked', false)
     }
 </script>
 <script type="text/javascript">
