@@ -62,7 +62,8 @@ class ProjectController extends Controller
         $search = '';
         if ($request->has('search') && Str::length($request->search) > 0) {
             $search = $request->search;
-            $q->where('projects.name','Like','%'.$search.'%');
+            $q->where('projects.name','Like','%'.$search.'%')
+            ->orWhere('clients.company','Like','%'.$search.'%');
         }
         if ($request->has('status')){
             switch($request->status) {
